@@ -1,0 +1,33 @@
+[tool.poetry]
+name = "easyclock"
+version = "0.1.0"
+description = "A easy desktop clock app"
+authors = ["ymy139 <ymy213456@163.com>"]
+license = "MIT"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.8"
+pyqt6 = "^6.6.1"
+requests = "^2.31.0"
+
+[[tool.poetry.source]]
+name = "mirrors_tuna"
+url = "https://pypi.tuna.tsinghua.edu.cn/simple/"
+priority = "primary"
+
+
+[[tool.poetry.source]]
+name = "mirrors_aliyun"
+url = "http://mirrors.aliyun.com/pypi/simple/"
+priority = "supplemental"
+
+
+[[tool.poetry.source]]
+name = "mirrors_bfsu"
+url = "https://mirrors.bfsu.edu.cn/pypi/web/simple/"
+priority = "supplemental"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

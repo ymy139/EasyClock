@@ -1,0 +1,27 @@
+{
+    "extensions": {
+        "recommendations": [
+            "donjayamanne.python-extension-pack",
+            "shd101wyy.markdown-preview-enhanced",
+            "esbenp.prettier-vscode"
+        ]
+    },
+    "folders": [
+        {
+            "path": ".",
+            "name": "EasyClock"
+        }
+    ],
+    "settings": {
+        "[python]": {
+            "diffEditor.ignoreTrimWhitespace": false,
+            "gitlens.codeLens.symbolScopes": [
+                "!Module"
+            ],
+            "editor.formatOnType": true,
+            "editor.wordBasedSuggestions": "off"
+        },
+        "python.analysis.typeCheckingMode": "standard",
+        "python.analysis.autoImportCompletions": true
+    }
+}
