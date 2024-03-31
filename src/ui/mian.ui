@@ -133,7 +133,7 @@
     </font>
    </property>
    <property name="text">
-    <string>下午好，愿你在这个美好的时光里，收获满满的喜悦与幸福。</string>
+    <string>夜色温柔，月光如水，此刻的宁静是为你准备的，早些休息吧，晚安！</string>
    </property>
    <property name="wordWrap">
     <bool>true</bool>
@@ -155,7 +155,7 @@
     </font>
    </property>
    <property name="text">
-    <string>8888年88月88日  星期六  农历十二月廿一</string>
+    <string>8888年88月88日  星期六  重阳节</string>
    </property>
    <property name="alignment">
     <set>Qt::AlignCenter</set>
