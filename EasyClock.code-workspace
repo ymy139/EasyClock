@@ -3,7 +3,8 @@
         "recommendations": [
             "donjayamanne.python-extension-pack",
             "shd101wyy.markdown-preview-enhanced",
-            "esbenp.prettier-vscode"
+            "redjue.git-commit-plugin",
+            "eamodio.gitlens"
         ]
     },
     "folders": [
@@ -22,6 +23,7 @@
             "editor.wordBasedSuggestions": "off"
         },
         "python.analysis.typeCheckingMode": "standard",
-        "python.analysis.autoImportCompletions": true
+        "python.analysis.autoImportCompletions": true,
+        "GitCommitPlugin.MaxSubjectCharacters": 30
     }
 }
