@@ -1,4 +1,6 @@
-import datetime, json, random
+from datetime import date as Date
+from json import loads as loadJSON
+from random import randint
 
 def getGreetingSentence(hour: int) -> str:
     """get a greeting sentence
@@ -47,12 +49,12 @@ def calculateCountdown(targetMonth: int, targetDay: int) -> int:
     Returns:
         int: the countdown, if the target is today, return 0
     """
-    today = datetime.date.today()
+    today = Date.today()
     targetYear = today.year
-    nextTargetDate = datetime.date(targetYear, targetMonth, targetDay)
+    nextTargetDate = Date(targetYear, targetMonth, targetDay)
     if nextTargetDate < today:
         targetYear += 1
-        nextTargetDate = datetime.date(targetYear, targetMonth, targetDay)
+        nextTargetDate = Date(targetYear, targetMonth, targetDay)
     delta = nextTargetDate - today
     return delta.days if delta.days > 0 else 0
 
@@ -62,11 +64,11 @@ def getASentence() -> dict[str, str]:
     Returns:
         dict[str, str]: a dict, like this:{"sentence":"...","from":"...","from_who":"..."}
     """
-    data: list[dict] = json.loads(
+    data: list[dict] = loadJSON(
         open("resources/data/sentences.json", encoding="utf-8")
         .read()
     )
-    count = random.randint(0, len(data)-1)
+    count = randint(0, len(data)-1)
     return {
         "sentence": data[count]["hitokoto"],
         "from": data[count]["from"],
