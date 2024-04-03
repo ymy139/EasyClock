@@ -1,16 +1,17 @@
-QListWidget {
+ListView,
+ListWidget {
     background: transparent;
     outline: none;
+    border: none;
+    /* font: 13px 'Segoe UI', 'Microsoft YaHei'; */
     selection-background-color: transparent;
     alternate-background-color: transparent;
     padding-left: 4px;
     padding-right: 4px;
-    border: 1px solid rgba(0, 0, 0, 15);
-    border-radius: 5px;
-    background-color: rgb(253, 253, 253);
 }
 
-QListWidget::item {
+ListView::item,
+ListWidget::item {
     background: transparent;
     border: 0px;
     padding-left: 11px;
@@ -19,7 +20,8 @@ QListWidget::item {
 }
 
 
-QListWidget::indicator {
+ListView::indicator,
+ListWidget::indicator {
     width: 18px;
     height: 18px;
     border-radius: 5px;
@@ -27,3 +29,8 @@ QListWidget::indicator {
     background-color: transparent;
     margin-right: 4px;
 }
+
+ListWidget{
+border: 1px solid rgba(0, 0, 0, 15);
+border-radius: 5px;
+background-color: rgb(253, 253, 253);}

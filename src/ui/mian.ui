@@ -155,7 +155,7 @@
     </font>
    </property>
    <property name="text">
-    <string>8888年88月88日  星期六  重阳节</string>
+    <string>8888年88月88日  星期六  十一月初六</string>
    </property>
    <property name="alignment">
     <set>Qt::AlignCenter</set>
@@ -351,6 +351,14 @@ border: 1px solid rgba(0, 0, 0, 15);
 border-radius: 5px;
 background-color: rgb(253, 253, 253);}</string>
    </property>
+   <item>
+    <property name="text">
+     <string>新建项目</string>
+    </property>
+    <property name="flags">
+     <set>ItemIsSelectable|ItemIsEditable|ItemIsDragEnabled|ItemIsUserCheckable|ItemIsEnabled</set>
+    </property>
+   </item>
   </widget>
   <widget class="QLabel" name="label_13">
    <property name="geometry">

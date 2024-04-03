@@ -1,6 +1,7 @@
 from PyQt6.QtGui import QFont, QFontDatabase, QIcon, QPixmap
 from PyQt6.QtCore import Qt
-from PyQt6.QtWidgets import QWidget, QLabel, QPushButton, QListWidget, QApplication
+from PyQt6.QtWidgets import QWidget, QLabel, QApplication
+from qfluentwidgets import PushButton, ListWidget
 
 class MainWindow(QWidget):
     def __init__(self) -> None:
@@ -95,24 +96,25 @@ class MainWindow(QWidget):
         self.toDoListTitle = QLabel(self)
         self.toDoListTitle.setGeometry(345, 0, 70, 30)
         
-        self.toDoList_del = QPushButton(self)
+        self.toDoList_del = PushButton(self)
         self.toDoList_del.setGeometry(565, 0, 35, 30)
         
-        self.toDoList_add = QPushButton(self)
+        self.toDoList_add = PushButton(self)
         self.toDoList_add.setGeometry(600, 0, 35, 30)
         
-        self.toDoList = QListWidget(self)
+        self.toDoList = ListWidget(self)
         self.toDoList.setGeometry(345, 30, 290, 215)
+        self.toDoList.setStyleSheet(open("resources/css/ListWidget.css").read())
         # ====================================================================
         
         self.separators["toDoList--menuBar"].setGeometry(340, 250, 300, 2)
         
         # right-down: menu bar
         # ====================================================================
-        self.anotherSentence = QPushButton(self)
+        self.anotherSentence = PushButton(self)
         self.anotherSentence.setGeometry(345, 255, 90, 30)
         
-        self.about = QPushButton(self)
+        self.about = PushButton(self)
         self.about.setGeometry(575, 255, 60, 30)
         # ====================================================================
         
@@ -124,17 +126,6 @@ class MainWindow(QWidget):
         self.about.setText("关于")
         
     def initUIStyleSheets(self) -> None:
-        self.styleSheets = {
-            "QPushButton": open("resources/css/QPushButton.css").read(),
-            "QListWidget": open("resources/css/QListWidget.css").read()
-        }
-        
-        self.toDoList_del.setStyleSheet(self.styleSheets["QPushButton"])
-        self.toDoList_add.setStyleSheet(self.styleSheets["QPushButton"])
-        self.toDoList.setStyleSheet(self.styleSheets["QListWidget"])
-        self.anotherSentence.setStyleSheet(self.styleSheets["QPushButton"])
-        self.about.setStyleSheet(self.styleSheets["QPushButton"])
-        
         self.separators["time--greeting"].setStyleSheet("background-color: rgb(160, 160, 160);")
         self.separators["greeting--oneSentence"].setStyleSheet("background-color: rgb(160, 160, 160);")
         self.separators["left--right"].setStyleSheet("background-color: rgb(160, 160, 160);")
@@ -187,9 +178,8 @@ class AboutWindow(QWidget):
         self.githubRepo.setFont(QFont(self.fontName, 9))
         self.githubRepo.setOpenExternalLinks(True)
         
-        self.ok = QPushButton(self)
+        self.ok = PushButton(self)
         self.ok.setGeometry(260, 95, 120, 30)
-        self.ok.setStyleSheet(open("resources/css/QPushButton.css").read())
         self.ok.setFont(QFont(self.fontName, 11))
     
     def initUITexts(self) -> None:
@@ -202,7 +192,7 @@ class AboutWindow(QWidget):
 if __name__ == "__main__":
     import sys
     app = QApplication(sys.argv)
-    # win = MainWindow()
-    win = AboutWindow()
+    win = MainWindow()
+    # win = AboutWindow()
     win.show()
     exit(app.exec())
