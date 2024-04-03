@@ -1,6 +1,7 @@
 from datetime import date as Date
 from json import loads as loadJSON
 from random import randint
+from lunardate import LunarDate
 
 def getGreetingSentence(hour: int) -> str:
     """get a greeting sentence
@@ -62,7 +63,14 @@ def getASentence() -> dict[str, str]:
     """get a sentence
 
     Returns:
-        dict[str, str]: a dict, like this:{"sentence":"...","from":"...","from_who":"..."}
+        dict[str, str]: a dict, like this:
+            ```json
+            {
+                "sentence": "...",
+                "from": "...",
+                "from_who": "..."
+            }
+            ```
     """
     data: list[dict] = loadJSON(
         open("resources/data/sentences.json", encoding="utf-8")
@@ -75,3 +83,49 @@ def getASentence() -> dict[str, str]:
         "from_who": data[count]["from_who"]
     }
     
+def solarToLunar(year: int, month: int, day: int) -> list[int]:
+    """get lunar date from solar date
+
+    Args:
+        year (int): solar year
+        month (int): solar month
+        day (int): solar day
+
+    Returns:
+        list[int]: lunar date, like this: [2024, 1, 1]
+    """
+    lunarDate = LunarDate.fromSolarDate(year, month, day)
+    lunarYear = lunarDate.year
+    lunarMonth = lunarDate.month
+    lunarDay = lunarDate.day
+    return [lunarYear, lunarMonth, lunarDay]
+
+def getLunarDateString(lunarMonth: int, lunarDay: int) -> str:
+    """get Chinese date from lunar date
+
+    Args:
+        lunarMonth (int): lunar month
+        lunarDay (int): lunar day
+
+    Returns:
+        str: Chinese date string, like this:'腊月初五'
+    """ 
+    chineseNums = ["零", "一", "二", "三", "四", "五", "六", "七", "八", "九", "十", 
+                   "十一", "十二", "十三", "十四", "十五", "十六", "十七", "十八", "十九", "二十",
+                   "甘一", "甘二", "甘三", "甘四", "甘五", "甘六", "甘七", "甘八", "甘九", "三十",
+                   "三一"]
+    lunardateString = ""
+    
+    if lunarMonth == 1:
+        lunardateString += "正月"
+    elif lunarMonth == 12:
+        lunardateString += "腊月"
+    else:
+        lunardateString += (chineseNums[lunarMonth]+"月")
+        
+    if lunarDay <= 10:
+        lunardateString += ("初"+chineseNums[lunarDay])
+    else:
+        lunardateString += chineseNums[lunarDay]
+        
+    return lunardateString

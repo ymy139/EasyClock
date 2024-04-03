@@ -137,6 +137,22 @@ url = "https://pypi.tuna.tsinghua.edu.cn/simple"
 reference = "mirrors_tuna"
 
 [[package]]
+name = "lunardate"
+version = "0.2.2"
+description = "A Chinese Calendar Library in Pure Python"
+optional = false
+python-versions = "*"
+files = [
+    {file = "lunardate-0.2.2-py3-none-any.whl", hash = "sha256:cf1916337e50470a82df12d885ff47a456e89c91a3ad4e5fdf1575e063a7ed55"},
+    {file = "lunardate-0.2.2.tar.gz", hash = "sha256:8ff8c01721bef7710f0712a302b1cb7d0b8b3ffc72a63a9a056cd01e58e5485a"},
+]
+
+[package.source]
+type = "legacy"
+url = "https://pypi.tuna.tsinghua.edu.cn/simple"
+reference = "mirrors_tuna"
+
+[[package]]
 name = "pyqt6"
 version = "6.6.1"
 description = "Python bindings for the Qt cross platform application toolkit"
@@ -262,4 +278,4 @@ reference = "mirrors_tuna"
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.8"
-content-hash = "6f39dd267f25c24c1d90e71d9212e43bcbada139d800f64a4ddefe43597df6bf"
+content-hash = "6330e535fbcf147a3e7fd94bc9380a9344321e07b4d7c9848b3b64341b113923"
