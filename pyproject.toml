@@ -3,8 +3,9 @@ name = "easyclock"
 version = "0.1.0"
 description = "A easy desktop clock app"
 authors = ["ymy139 <ymy213456@163.com>"]
-license = "MIT"
-readme = "README.md"
+license = "AGPLv3"
+repository = "https://github.com/ymy139/EasyClock"
+readme = ["README.md", "LICENSE"]
 
 [tool.poetry.dependencies]
 python = "^3.8"

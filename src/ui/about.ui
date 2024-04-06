@@ -127,9 +127,9 @@
     </font>
    </property>
    <property name="text">
-    <string>Code by: ymy139(余沐垚)
-本软件遵循AGPLv3开源许可证在Github开源
-使用 Python3.11.6 + PyQt6.6.1 制作</string>
+    <string>Version: v0.1.0
+Code by: ymy139 (余沐垚)
+本软件遵循AGPLv3开源许可证在Github开源</string>
    </property>
   </widget>
  </widget>
