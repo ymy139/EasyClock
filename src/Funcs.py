@@ -77,6 +77,8 @@ def getASentence() -> dict[str, str]:
         .read()
     )
     count = randint(0, len(data)-1)
+    while data[count]["length"] >= 37:
+        count = randint(0, len(data)-1)
     return {
         "sentence": data[count]["hitokoto"],
         "from": data[count]["from"],
