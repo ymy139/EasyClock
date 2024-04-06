@@ -46,16 +46,16 @@ class MainWindow(QWidget):
         
         self.timeWidget["hour"].setGeometry(0, 0, 145, 130)
         self.timeWidget["hour"].setFont(QFont(self.fontsName["time"], 100))
-        self.timeWidget["hour"].setAlignment(Qt.AlignmentFlag.AlignHCenter)
+        self.timeWidget["hour"].setAlignment(Qt.AlignmentFlag.AlignHCenter | Qt.AlignmentFlag.AlignVCenter)
         
         self.timeWidget["minute"].setGeometry(150, 0, 145, 130)
         self.timeWidget["minute"].setFont(QFont(self.fontsName["time"], 100))
         self.timeWidget["minute"].setStyleSheet("color: rgb(245, 139, 46);")
-        self.timeWidget["minute"].setAlignment(Qt.AlignmentFlag.AlignHCenter)
+        self.timeWidget["minute"].setAlignment(Qt.AlignmentFlag.AlignHCenter | Qt.AlignmentFlag.AlignVCenter)
         
         self.timeWidget["second"].setGeometry(295, 85, 40, 30)
         self.timeWidget["second"].setFont(QFont(self.fontsName["time"], 27))
-        self.timeWidget["second"].setAlignment(Qt.AlignmentFlag.AlignHCenter)
+        self.timeWidget["second"].setAlignment(Qt.AlignmentFlag.AlignHCenter | Qt.AlignmentFlag.AlignVCenter)
         
         self.date = QLabel(self)
         self.date.setGeometry(5, 120, 330, 15)
@@ -71,7 +71,7 @@ class MainWindow(QWidget):
         # left-middle: greeting part
         # ====================================================================
         self.greeting = QLabel(self)
-        self.greeting.setGeometry(2, 165, 330, 45)
+        self.greeting.setGeometry(5, 165, 330, 45)
         self.greeting.setWordWrap(True)
         # ====================================================================
         
@@ -85,8 +85,8 @@ class MainWindow(QWidget):
         self.sentence.setWordWrap(True)
         
         self.sentenceFrom = QLabel(self)
-        self.sentence.setGeometry(5, 265, 330, 20)
-        self.sentence.setAlignment(Qt.AlignmentFlag.AlignRight)
+        self.sentenceFrom.setGeometry(5, 265, 330, 20)
+        self.sentenceFrom.setAlignment(Qt.AlignmentFlag.AlignRight)
         # ====================================================================
         
         self.separators["left--right"].setGeometry(340, 0, 2, 290)

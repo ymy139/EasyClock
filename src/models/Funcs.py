@@ -1,4 +1,5 @@
 from datetime import date as Date
+from time import strftime
 from json import loads as loadJSON
 from random import randint
 from lunardate import LunarDate
@@ -7,7 +8,7 @@ def getGreetingSentence(hour: int) -> str:
     """get a greeting sentence
 
     Args:
-        hour (int): a 24 hour number
+        hour (int): a 24-hour clock number
 
     Returns:
         str: a greeting sentence
@@ -77,8 +78,23 @@ def getASentence() -> dict[str, str]:
         .read()
     )
     count = randint(0, len(data)-1)
-    while data[count]["length"] >= 37:
+    
+    if data[count]["from_who"] == None:
+        length_from = len(data[count]["from"])
+    elif data[count]["from"] == None:
+        length_from = len(data[count]["from_who"])
+    else:
+        length_from = len(data[count]["from"]) + len(data[count]["from_who"])
+    
+    while data[count]["length"] >= 37 or length_from >= 16:
         count = randint(0, len(data)-1)
+        if data[count]["from_who"] == None:
+            length_from = len(data[count]["from"])
+        elif data[count]["from"] == None:
+            length_from = len(data[count]["from_who"])
+        else:
+            length_from = len(data[count]["from"]) + len(data[count]["from_who"])
+        
     return {
         "sentence": data[count]["hitokoto"],
         "from": data[count]["from"],
@@ -131,3 +147,33 @@ def getLunarDateString(lunarMonth: int, lunarDay: int) -> str:
         lunardateString += chineseNums[lunarDay]
         
     return lunardateString
+
+def getNowTime() -> dict[str, str]:
+    """return now time, use 24-hour clock
+
+    Returns:
+        dict[str, int]: now time, like this:
+        ```json
+        {
+            "hour": "23",
+            "minute": "59",
+            "second": "59",
+            "weekday": "星期日"
+        }
+        ```
+    """
+    weekdays = {
+        "Monday": "星期一",
+        "Tuesday": "星期二",
+        "Wednesday": "星期三",
+        "Thursday": "星期四",
+        "Friday": "星期五",
+        "Saturday": "星期六",
+        "Sunday": "星期日"
+    }
+    return {
+        "hour": strftime("%H"),
+        "minute": strftime("%M"),
+        "second": strftime("%S"),
+        "weekday": weekdays[strftime("%A")]
+    }
