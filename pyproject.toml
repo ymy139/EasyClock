@@ -6,6 +6,7 @@ authors = ["ymy139 <ymy213456@163.com>"]
 license = "AGPLv3"
 repository = "https://github.com/ymy139/EasyClock"
 readme = ["README.md", "LICENSE"]
+package-mode = false
 
 [tool.poetry.dependencies]
 python = "^3.8"
