@@ -351,6 +351,9 @@ border: 1px solid rgba(0, 0, 0, 15);
 border-radius: 5px;
 background-color: rgb(253, 253, 253);}</string>
    </property>
+   <property name="wordWrap">
+    <bool>true</bool>
+   </property>
    <item>
     <property name="text">
      <string>新建项目</string>

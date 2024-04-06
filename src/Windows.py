@@ -105,6 +105,7 @@ class MainWindow(QWidget):
         self.toDoList = ListWidget(self)
         self.toDoList.setGeometry(345, 30, 290, 215)
         self.toDoList.setStyleSheet(open("resources/css/ListWidget.css").read())
+        self.toDoList.setWordWrap(True)
         # ====================================================================
         
         self.separators["toDoList--menuBar"].setGeometry(340, 250, 300, 2)
