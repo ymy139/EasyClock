@@ -1,5 +1,5 @@
 from threading import Thread
-from sys import argv
+from sys import argv, exit
 from time import sleep, strftime
 
 from PyQt6.QtWidgets import QApplication, QListWidgetItem
