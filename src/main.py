@@ -1,11 +1,15 @@
 from threading import Thread
 from sys import argv, exit
 from time import sleep, strftime
+from os import chdir
+from os.path import split, normpath
 
 from PyQt6.QtWidgets import QApplication, QListWidgetItem
 from PyQt6.QtCore import Qt
 
 from models import Funcs, Windows
+
+chdir(normpath(split(__file__)[0]+"\\.."))
 
 def updataWindow() -> None:
     try:
