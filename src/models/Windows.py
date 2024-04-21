@@ -185,7 +185,7 @@ class AboutWindow(QWidget):
     
     def initUITexts(self) -> None:
         self.title.setText("EasyClock 简易学习时钟")
-        self.data.setText("Version: v0.1.0\nCode by: ymy139(余沐垚)\n本软件遵循AGPLv3开源许可证在GitHub开源")
+        self.data.setText("Version: v0.1.0\nCode by: ymy139\n本软件遵循AGPLv3开源许可证在GitHub开源")
         self.sentenceFrom.setText("一言来源: <a href='http://hitokoto.cn'>hitokoto.cn</a>")
         self.githubRepo.setText("GitHub仓库: <a href='http://gitHub.com/ymy139/EasyClock'>gitHub.com/ymy139/EasyClock</a>")
         self.ok.setText("确认")
