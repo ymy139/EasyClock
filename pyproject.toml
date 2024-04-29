@@ -10,11 +10,11 @@ package-mode = false
 
 [tool.poetry.dependencies]
 python = "^3.8,<3.13"
-pyqt6 = "^6.6.1"
+pyqt6 = "^6.7.0"
 requests = "^2.31.0"
 lunardate = "^0.2.2"
-pyqt6-fluent-widgets = "^1.5.4"
-pyinstaller = "^6.5.0"
+pyqt6-fluent-widgets = "^1.5.5"
+pyinstaller = "^6.6.0"
 
 [[tool.poetry.source]]
 name = "mirrors_tuna"
