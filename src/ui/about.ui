@@ -128,7 +128,7 @@
    </property>
    <property name="text">
     <string>Version: v0.1.0
-Code by: ymy139 (余沐垚)
+Code by: ymy139
 本软件遵循AGPLv3开源许可证在Github开源</string>
    </property>
   </widget>
