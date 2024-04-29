@@ -4129,4 +4129,4 @@ reference = "mirrors_tuna"
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.8,<3.13"
-content-hash = "46bd04e177d556379994a5a49a70336031368dc31503afe967c99f115f52b7a7"
+content-hash = "084e58f867ff3ee44eb0359ecfc6a1f5dfde1965b5ac1af2d0e749374571fa00"
