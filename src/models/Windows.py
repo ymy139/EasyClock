@@ -1,11 +1,18 @@
+from time import strftime, sleep
+
 from PyQt6.QtGui import QFont, QFontDatabase, QIcon, QPixmap
 from PyQt6.QtCore import Qt
-from PyQt6.QtWidgets import QWidget, QLabel, QApplication
+from PyQt6.QtWidgets import QWidget, QLabel, QApplication, QListWidgetItem
 from qfluentwidgets import PushButton, ListWidget, LineEdit, CheckBox, FluentIcon, ToolButton
 
+from . import Funcs
+
 class MainWindow(QWidget):
-    def __init__(self) -> None:
-        super().__init__()
+    def __init__(self, flags: Qt.WindowType | None = None) -> None:
+        if flags != None:
+            super().__init__(flags=flags)
+        else:
+            super().__init__()
         self.loadFonts()
         self.initWindow()
         self.initUIWidget()
@@ -239,6 +246,57 @@ class SettingsWindow(QWidget):
         self.alwaysOnTop.setText("窗口置顶")
         self.about.setText("关于")
         self.accept.setText("应用")
+   
+class Slots(object):
+    def __init__(self, window: MainWindow) -> None:
+        self.window = window
+        
+    def ChangeAnotherSentence(self) -> None:
+        sentence = Funcs.getASentence()
+        self.window.sentence.setText("「"+sentence["sentence"]+"」")
+        if sentence["from"] != None and sentence["from_who"] == None:
+            self.window.sentenceFrom.setText("——「"+sentence["from"]+"」")
+        elif sentence["from"] == None and sentence["from_who"] != None:
+            self.window.sentenceFrom.setText("——"+sentence["from_who"])
+        else:
+            self.window.sentenceFrom.setText("——"+sentence["from_who"]+"「"+sentence["from"]+"」")
+            
+    def addToDoItem(self) -> None:
+        newItem = QListWidgetItem(self.window.toDoList)
+        newItem.setText("新建待办事项")
+        newItem.setFlags(Qt.ItemFlag.ItemIsEditable | 
+                        Qt.ItemFlag.ItemIsSelectable | 
+                        Qt.ItemFlag.ItemIsDragEnabled | 
+                        Qt.ItemFlag.ItemIsUserCheckable | 
+                        Qt.ItemFlag.ItemIsEnabled)
+
+    def delToDoItem(self) -> None:
+        currentItem = self.window.toDoList.currentItem()
+        if currentItem != None:
+            row = self.window.toDoList.row(currentItem)
+            self.window.toDoList.takeItem(row)
+        
+    def updataWindow(self) -> None:
+        try:
+            while True:
+                nowTime = Funcs.getNowTime()
+                lunarDay = Funcs.solarToLunar(int(strftime("%Y")), 
+                                            int(strftime("%m")), 
+                                            int(strftime("%d")))
+                
+                self.window.timeWidget["hour"].setText(nowTime["hour"])
+                self.window.timeWidget["minute"].setText(nowTime["minute"])
+                self.window.timeWidget["second"].setText(nowTime["second"])
+                
+                self.window.date.setText(strftime("%Y年%m月%d日")+" "+
+                                    nowTime["weekday"]+" "+
+                                    Funcs.getLunarDateString(lunarDay[1], lunarDay[2]))
+                
+                self.window.countdown.setText("高考倒计时："+str(Funcs.calculateCountdown(6, 7))+"天")
+                
+                QApplication.processEvents()
+                sleep(0.2)
+        except: pass
         
 if __name__ == "__main__":
     import sys
