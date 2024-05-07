@@ -1,7 +1,7 @@
 from PyQt6.QtGui import QFont, QFontDatabase, QIcon, QPixmap
 from PyQt6.QtCore import Qt
 from PyQt6.QtWidgets import QWidget, QLabel, QApplication
-from qfluentwidgets import PushButton, ListWidget
+from qfluentwidgets import PushButton, ListWidget, LineEdit, CheckBox, FluentIcon, ToolButton
 
 class MainWindow(QWidget):
     def __init__(self) -> None:
@@ -11,7 +11,7 @@ class MainWindow(QWidget):
         self.initUIWidget()
         self.initUITexts()
         self.initUIStyleSheets()
-        self.about.clicked.connect(self.showAbout)
+        self.settings.clicked.connect(self.showSettings)
         
     def loadFonts(self) -> None:
         fontID_ui = QFontDatabase.addApplicationFont("resources/fonts/ui.ttf")
@@ -115,8 +115,8 @@ class MainWindow(QWidget):
         self.anotherSentence = PushButton(self)
         self.anotherSentence.setGeometry(345, 255, 90, 30)
         
-        self.about = PushButton(self)
-        self.about.setGeometry(575, 255, 60, 30)
+        self.settings = PushButton(self)
+        self.settings.setGeometry(575, 255, 60, 30)
         # ====================================================================
         
     def initUITexts(self) -> None:
@@ -124,7 +124,7 @@ class MainWindow(QWidget):
         self.toDoList_del.setText("-")
         self.toDoList_add.setText("+")
         self.anotherSentence.setText("←换一句")
-        self.about.setText("关于")
+        self.settings.setText("设置")
         
     def initUIStyleSheets(self) -> None:
         self.separators["time--greeting"].setStyleSheet("background-color: rgb(160, 160, 160);")
@@ -132,9 +132,9 @@ class MainWindow(QWidget):
         self.separators["left--right"].setStyleSheet("background-color: rgb(160, 160, 160);")
         self.separators["toDoList--menuBar"].setStyleSheet("background-color: rgb(160, 160, 160);")
         
-    def showAbout(self) -> None:
-        self.aboutWindow = AboutWindow()
-        self.aboutWindow.show()
+    def showSettings(self) -> None:
+        self.settingsWindow = SettingsWindow()
+        self.settingsWindow.show()
         
 class AboutWindow(QWidget):
     def __init__(self) -> None:
@@ -190,10 +190,61 @@ class AboutWindow(QWidget):
         self.githubRepo.setText("GitHub仓库: <a href='http://gitHub.com/ymy139/EasyClock'>gitHub.com/ymy139/EasyClock</a>")
         self.ok.setText("确认")
         
+class SettingsWindow(QWidget):
+    def __init__(self) -> None:
+        super().__init__()
+        self.loadFonts()
+        self.initWindow()
+        self.initUIWidget()
+        self.initUITexts()
+        
+    def loadFonts(self) -> None:
+        fontID_ui = QFontDatabase.addApplicationFont("resources/fonts/ui.ttf")
+        self.fontName = QFontDatabase.applicationFontFamilies(fontID_ui)[0]
+        
+    def initWindow(self) -> None:
+        self.resize(520, 100)
+        self.setStyleSheet("background-color: rgb(249, 249, 249);")
+        self.setWindowTitle("EasyClock - 设置")
+        self.setWindowIcon(QIcon("resources/imgs/icon.ico"))
+        
+    def initUIWidget(self) -> None: 
+        self.focusModeBackground: list[QWidget] = [
+            QLabel(self),
+            LineEdit(self),
+            ToolButton(self)
+        ]
+        self.focusModeBackground[0].setGeometry(10, 5, 130, 25)
+        self.focusModeBackground[0].setFont(QFont(self.fontName, 12))
+        self.focusModeBackground[1].setGeometry(10, 35, 395, 33)
+        self.focusModeBackground[2].setGeometry(410, 35, 35, 33)
+        self.focusModeBackground[2].setIcon(FluentIcon.MORE)
+        
+        self.alwaysOnTop = CheckBox(self)
+        self.alwaysOnTop.setGeometry(360, 5, 85, 22)
+        
+        self.about = PushButton(self)
+        self.about.setGeometry(455, 5, 60, 30)
+        
+        self.accept = PushButton(self)
+        self.accept.setGeometry(455, 40, 60, 30)
+        
+        self.statusBar = QLabel(self)
+        self.statusBar.setGeometry(0, 75, 520, 20)
+        self.statusBar.setStyleSheet("background-color: #F0F0F0;")
+        
+    def initUITexts(self) -> None:
+        self.focusModeBackground[0].setText("专注模式背景图片")
+        self.focusModeBackground[1].setPlaceholderText("输入图片路径或点击右侧按钮选择文件")
+        self.alwaysOnTop.setText("窗口置顶")
+        self.about.setText("关于")
+        self.accept.setText("应用")
+        
 if __name__ == "__main__":
     import sys
     app = QApplication(sys.argv)
-    win = MainWindow()
+    # win = MainWindow()
     # win = AboutWindow()
+    win = SettingsWindow()
     win.show()
     exit(app.exec())

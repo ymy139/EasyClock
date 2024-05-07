@@ -280,7 +280,7 @@
     </font>
    </property>
    <property name="text">
-    <string>关于</string>
+    <string>设置</string>
    </property>
   </widget>
   <widget class="PushButton" name="PushButton_3">

@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Form</class>
+ <widget class="QWidget" name="Form">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>520</width>
+    <height>95</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">background-color: rgb(249, 249, 249);</string>
+  </property>
+  <widget class="PushButton" name="PushButton_3">
+   <property name="geometry">
+    <rect>
+     <x>410</x>
+     <y>35</y>
+     <width>35</width>
+     <height>33</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>···</string>
+   </property>
+  </widget>
+  <widget class="LineEdit" name="LineEdit">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>35</y>
+     <width>395</width>
+     <height>33</height>
+    </rect>
+   </property>
+   <property name="inputMask">
+    <string/>
+   </property>
+   <property name="placeholderText">
+    <string>输入图片路径或点击右侧按钮选择文件</string>
+   </property>
+  </widget>
+  <widget class="PushButton" name="PushButton_2">
+   <property name="geometry">
+    <rect>
+     <x>455</x>
+     <y>5</y>
+     <width>60</width>
+     <height>30</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>关于</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>5</y>
+     <width>130</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>思源黑体 CN Regular</family>
+     <pointsize>12</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>专注模式背景图片</string>
+   </property>
+  </widget>
+  <widget class="CheckBox" name="CheckBox">
+   <property name="geometry">
+    <rect>
+     <x>360</x>
+     <y>5</y>
+     <width>85</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>窗口置顶</string>
+   </property>
+  </widget>
+  <widget class="PushButton" name="PushButton">
+   <property name="geometry">
+    <rect>
+     <x>455</x>
+     <y>40</y>
+     <width>60</width>
+     <height>30</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>应用</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_2">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>75</y>
+     <width>520</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color: #F0F0F0;</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>CheckBox</class>
+   <extends>QCheckBox</extends>
+   <header>qfluentwidgets</header>
+  </customwidget>
+  <customwidget>
+   <class>PushButton</class>
+   <extends>QPushButton</extends>
+   <header>qfluentwidgets</header>
+  </customwidget>
+  <customwidget>
+   <class>LineEdit</class>
+   <extends>QLineEdit</extends>
+   <header>qfluentwidgets</header>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections/>
+</ui>
