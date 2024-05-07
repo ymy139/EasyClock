@@ -204,6 +204,7 @@ class SettingsWindow(QWidget):
         self.initWindow()
         self.initUIWidget()
         self.initUITexts()
+        self.about.clicked.connect(self.showAbout)
         
     def loadFonts(self) -> None:
         fontID_ui = QFontDatabase.addApplicationFont("resources/fonts/ui.ttf")
@@ -246,6 +247,10 @@ class SettingsWindow(QWidget):
         self.alwaysOnTop.setText("窗口置顶")
         self.about.setText("关于")
         self.accept.setText("应用")
+        
+    def showAbout(self) -> None:
+        self.aboutWindow = AboutWindow()
+        self.aboutWindow.show()
    
 class Slots(object):
     def __init__(self, window: MainWindow) -> None:
