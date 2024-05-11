@@ -2,7 +2,7 @@ from time import strftime, sleep
 
 from PyQt6.QtGui import QFont, QFontDatabase, QIcon, QPixmap
 from PyQt6.QtCore import Qt
-from PyQt6.QtWidgets import QWidget, QLabel, QApplication, QListWidgetItem
+from PyQt6.QtWidgets import QWidget, QLabel, QApplication, QListWidgetItem, QFileDialog, QMessageBox
 from qfluentwidgets import PushButton, ListWidget, LineEdit, CheckBox, FluentIcon, ToolButton
 
 from . import Funcs
@@ -206,7 +206,10 @@ class SettingsWindow(QWidget):
         self.initWindow()
         self.initUIWidget()
         self.initUITexts()
+        self.initSettingsItem()
         self.about.clicked.connect(self.showAbout)
+        self.accept.clicked.connect(self.saveSettings)
+        self.focusModeBackground[2].clicked.connect(self.chooseFocusModeBgImg) # type: ignore
         
     def loadFonts(self) -> None:
         fontID_ui = QFontDatabase.addApplicationFont("resources/fonts/ui.ttf")
@@ -252,9 +255,41 @@ class SettingsWindow(QWidget):
         self.about.setText("关于")
         self.accept.setText("应用")
         
+    def initSettingsItem(self) -> None:
+        settings = Funcs.Settings.readSettings()
+        if settings["window"]["alwaysOnTop"] == True: # type: ignore
+            self.alwaysOnTop.setChecked(True)
+        self.focusModeBackground[1].setText(settings["theme"]["focusMode"]["background"]) # type: ignore
+        
     def showAbout(self) -> None:
         self.aboutWindow = AboutWindow()
         self.aboutWindow.show()
+        
+    def saveSettings(self) -> None:
+        settings = Funcs.Settings.getSettingsFromWindow(self)
+        if self.dialog.selectedMimeTypeFilter() == "application/octet-stream":
+            warn = QMessageBox.warning(self, 
+                                        "警告", 
+                                        "您选择的图片文件可能不受支持，可能出现预料之外的错误。", 
+                                        QMessageBox.StandardButton.Ok | QMessageBox.StandardButton.Cancel, 
+                                        QMessageBox.StandardButton.Cancel)
+            if warn == QMessageBox.StandardButton.Cancel:
+                return None
+        try:
+            Funcs.Settings.saveSettings(settings)
+            self.statusBar.setText(strftime("  %Y/%m/%d - %H:%M:%S  ") + "已保存设置，重新启动软件以生效。")
+        except BaseException as errorMsg:
+            self.statusBar.setText(strftime("  %Y/%m/%d - %H:%M:%S  ") + "保存失败：" + str(errorMsg))
+            
+    def chooseFocusModeBgImg(self) -> None:
+        self.dialog = QFileDialog(self)
+        self.dialog.setFileMode(QFileDialog.FileMode.ExistingFile)
+        self.dialog.setMimeTypeFilters(["application/octet-stream", "image/jpeg", 
+                                   "image/png", "image/bmp", "image/gif"])
+        self.dialog.selectMimeTypeFilter("image/jpeg")
+        if self.dialog.exec() == QFileDialog.DialogCode.Accepted:
+            selectedFile = self.dialog.selectedFiles()[0]
+            self.focusModeBackground[1].setText(selectedFile) # type: ignore
    
 class Slots(object):
     def __init__(self, window: MainWindow) -> None:

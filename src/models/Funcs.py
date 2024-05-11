@@ -1,8 +1,13 @@
 from datetime import date as Date
 from time import strftime
 from json import loads as loadJSON
+from json import dumps as dumpJSON
 from random import randint
 from lunardate import LunarDate
+from os import access, F_OK, mkdir
+
+from .Windows import SettingsWindow
+from .Types import configDictType
 
 def getGreetingSentence(hour: int) -> str:
     """get a greeting sentence
@@ -177,3 +182,51 @@ def getNowTime() -> dict[str, str]:
         "second": strftime("%S"),
         "weekday": weekdays[strftime("%A")]
     }
+    
+class Settings():
+    defaultSettings: configDictType = {
+        "configFmtVersion": 1,
+        "window": {
+            "alwaysOnTop": False
+        },
+        "theme": {
+            "focusMode": {
+                "background": ""
+            }
+        }
+    }
+    
+    @staticmethod
+    def readSettings() -> configDictType:
+        if access("config/config.json", F_OK):
+            return loadJSON(open("config/config.json", "r", encoding="utf-8")
+                            .read())
+        else:
+            return Settings.defaultSettings
+    
+    @staticmethod
+    def saveSettings(settings: configDictType) -> None:
+        # Determine if it is a legal configuration
+        if not access(settings["theme"]["focusMode"]["background"], F_OK): # type: ignore
+            raise FileNotFoundError("专注模式背景图片不存在！")
+        
+        if not access("config", F_OK):
+            mkdir("config")
+        configFile = open("config/config.json", "w", encoding="utf-8")
+        configFile.write(dumpJSON(settings))
+        configFile.close()
+        return None
+    
+    @staticmethod
+    def getSettingsFromWindow(settingsWindow: SettingsWindow) -> configDictType:
+        return {
+            "configFmtVersion": 1,
+            "window": {
+                "alwaysOnTop": settingsWindow.alwaysOnTop.isChecked()
+            },
+            "theme": {
+                "focusMode": {
+                    "background": settingsWindow.focusModeBackground[1].text() # type: ignore
+                }
+            }
+        }
