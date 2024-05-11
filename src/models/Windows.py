@@ -34,6 +34,8 @@ class MainWindow(QWidget):
         self.setStyleSheet("background-color: rgb(249, 249, 249);")
         self.setWindowTitle("EasyClock")
         self.setWindowIcon(QIcon("resources/imgs/icon.ico"))
+        self.setMaximumSize(640, 290)
+        self.setMinimumSize(640, 290)
         
     def initUIWidget(self) -> None:
         self.separators = {
@@ -211,10 +213,12 @@ class SettingsWindow(QWidget):
         self.fontName = QFontDatabase.applicationFontFamilies(fontID_ui)[0]
         
     def initWindow(self) -> None:
-        self.resize(520, 100)
+        self.resize(520, 95)
         self.setStyleSheet("background-color: rgb(249, 249, 249);")
         self.setWindowTitle("EasyClock - 设置")
         self.setWindowIcon(QIcon("resources/imgs/icon.ico"))
+        self.setMaximumSize(520, 95)
+        self.setMinimumSize(520, 95)
         
     def initUIWidget(self) -> None: 
         self.focusModeBackground: list[QWidget] = [
@@ -226,7 +230,7 @@ class SettingsWindow(QWidget):
         self.focusModeBackground[0].setFont(QFont(self.fontName, 12))
         self.focusModeBackground[1].setGeometry(10, 35, 395, 33)
         self.focusModeBackground[2].setGeometry(410, 35, 35, 33)
-        self.focusModeBackground[2].setIcon(FluentIcon.MORE)
+        self.focusModeBackground[2].setIcon(FluentIcon.MORE) # type: ignore
         
         self.alwaysOnTop = CheckBox(self)
         self.alwaysOnTop.setGeometry(360, 5, 85, 22)
@@ -242,8 +246,8 @@ class SettingsWindow(QWidget):
         self.statusBar.setStyleSheet("background-color: #F0F0F0;")
         
     def initUITexts(self) -> None:
-        self.focusModeBackground[0].setText("专注模式背景图片")
-        self.focusModeBackground[1].setPlaceholderText("输入图片路径或点击右侧按钮选择文件")
+        self.focusModeBackground[0].setText("专注模式背景图片") # type: ignore
+        self.focusModeBackground[1].setPlaceholderText("输入图片路径或点击右侧按钮选择文件") # type: ignore
         self.alwaysOnTop.setText("窗口置顶")
         self.about.setText("关于")
         self.accept.setText("应用")
