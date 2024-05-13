@@ -1,6 +1,6 @@
 from time import strftime, sleep
 
-from PyQt6.QtGui import QFont, QFontDatabase, QIcon, QPixmap
+from PyQt6.QtGui import QCloseEvent, QFont, QFontDatabase, QIcon, QPixmap
 from PyQt6.QtCore import Qt
 from PyQt6.QtWidgets import QWidget, QLabel, QApplication, QListWidgetItem, QFileDialog, QMessageBox
 from qfluentwidgets import PushButton, ListWidget, LineEdit, CheckBox, FluentIcon, ToolButton
@@ -19,6 +19,7 @@ class MainWindow(QWidget):
         self.initUITexts()
         self.initUIStyleSheets()
         self.settings.clicked.connect(self.showSettings)
+        self.isClose = False
         
     def loadFonts(self) -> None:
         fontID_ui = QFontDatabase.addApplicationFont("resources/fonts/ui.ttf")
@@ -144,6 +145,10 @@ class MainWindow(QWidget):
     def showSettings(self) -> None:
         self.settingsWindow = SettingsWindow()
         self.settingsWindow.show()
+        
+    def closeEvent(self, a0: QCloseEvent | None) -> None:
+        self.isClose = True
+        return super().closeEvent(a0)
         
 class AboutWindow(QWidget):
     def __init__(self) -> None:
@@ -321,7 +326,6 @@ class Slots(object):
             self.window.toDoList.takeItem(row)
         
     def updataWindow(self) -> None:
-        try:
             while True:
                 nowTime = Funcs.getNowTime()
                 lunarDay = Funcs.solarToLunar(int(strftime("%Y")), 
@@ -338,9 +342,11 @@ class Slots(object):
                 
                 self.window.countdown.setText("高考倒计时："+str(Funcs.calculateCountdown(6, 7))+"天")
                 
-                QApplication.processEvents()
-                sleep(0.2)
-        except: pass
+                if self.window.isClose == True:
+                    break
+                else:
+                    QApplication.processEvents()
+                    sleep(0.2)
         
 if __name__ == "__main__":
     import sys
