@@ -187,7 +187,11 @@ class Settings():
     defaultSettings: configDictType = {
         "configFmtVersion": 1,
         "window": {
-            "alwaysOnTop": False
+            "alwaysOnTop": False,
+            "countDown": {
+                "month": 6,
+                "day": 7
+            }
         },
         "theme": {
             "focusMode": {
@@ -222,7 +226,11 @@ class Settings():
         return {
             "configFmtVersion": 1,
             "window": {
-                "alwaysOnTop": settingsWindow.alwaysOnTop.isChecked()
+                "alwaysOnTop": settingsWindow.alwaysOnTop.isChecked(),
+                "countDown": {
+                    "month": settingsWindow.countDown[2].value(), # type: ignore
+                    "day": settingsWindow.countDown[4].value() # type: ignore
+                }
             },
             "theme": {
                 "focusMode": {

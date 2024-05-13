@@ -3,7 +3,7 @@ from time import strftime, sleep
 from PyQt6.QtGui import QCloseEvent, QFont, QFontDatabase, QIcon, QPixmap
 from PyQt6.QtCore import Qt
 from PyQt6.QtWidgets import QWidget, QLabel, QApplication, QListWidgetItem, QFileDialog, QMessageBox
-from qfluentwidgets import PushButton, ListWidget, LineEdit, CheckBox, FluentIcon, ToolButton
+from qfluentwidgets import PushButton, ListWidget, LineEdit, CheckBox, FluentIcon, ToolButton, SpinBox
 
 from . import Funcs
 
@@ -221,12 +221,12 @@ class SettingsWindow(QWidget):
         self.fontName = QFontDatabase.applicationFontFamilies(fontID_ui)[0]
         
     def initWindow(self) -> None:
-        self.resize(520, 95)
+        self.resize(470, 150)
         self.setStyleSheet("background-color: rgb(249, 249, 249);")
         self.setWindowTitle("EasyClock - 设置")
         self.setWindowIcon(QIcon("resources/imgs/icon.ico"))
-        self.setMaximumSize(520, 95)
-        self.setMinimumSize(520, 95)
+        self.setMaximumSize(470, 150)
+        self.setMinimumSize(470, 150)
         
     def initUIWidget(self) -> None: 
         self.focusModeBackground: list[QWidget] = [
@@ -234,23 +234,54 @@ class SettingsWindow(QWidget):
             LineEdit(self),
             ToolButton(self)
         ]
-        self.focusModeBackground[0].setGeometry(10, 5, 130, 25)
+        self.focusModeBackground[0].setGeometry(15, 0, 130, 25)
         self.focusModeBackground[0].setFont(QFont(self.fontName, 12))
-        self.focusModeBackground[1].setGeometry(10, 35, 395, 33)
-        self.focusModeBackground[2].setGeometry(410, 35, 35, 33)
+        
+        self.focusModeBackground[1].setGeometry(10, 25, 410, 33)
+        
+        self.focusModeBackground[2].setGeometry(425, 35, 35, 33)
         self.focusModeBackground[2].setIcon(FluentIcon.MORE) # type: ignore
         
         self.alwaysOnTop = CheckBox(self)
-        self.alwaysOnTop.setGeometry(360, 5, 85, 22)
+        self.alwaysOnTop.setGeometry(355, 65, 85, 22)
         
         self.about = PushButton(self)
-        self.about.setGeometry(455, 5, 60, 30)
+        self.about.setGeometry(340, 95, 60, 30)
         
         self.accept = PushButton(self)
-        self.accept.setGeometry(455, 40, 60, 30)
+        self.accept.setGeometry(405, 95, 60, 30)
+        
+        self.countDown: list[QWidget] = [
+            QLabel(self),
+            QLabel(self),
+            SpinBox(self),
+            QLabel(self),
+            SpinBox(self)
+        ]
+        self.countDown[0].setGeometry(15, 60, 100, 25)
+        self.countDown[0].setText("自定义倒计时") # type: ignore
+        self.countDown[0].setFont(QFont(self.fontName, 12))
+        
+        self.countDown[1].setGeometry(20, 85, 20, 33)
+        self.countDown[1].setFont(QFont(self.fontName, 12))
+        self.countDown[1].setText("月") # type: ignore
+        
+        self.countDown[2].setGeometry(45, 85, 110, 33)
+        self.countDown[2].setMinimum(1) # type: ignore
+        self.countDown[2].setMaximum(12) # type: ignore
+        self.countDown[2].setValue(6) # type: ignore
+        
+        self.countDown[3].setGeometry(160, 85, 20, 33)
+        self.countDown[3].setFont(QFont(self.fontName, 12))
+        self.countDown[3].setText("日") # type: ignore
+        
+        self.countDown[4].setGeometry(185, 85, 110, 33)
+        self.countDown[4].setMinimum(1) # type: ignore
+        self.countDown[4].setMaximum(31) # type: ignore
+        self.countDown[4].setValue(7) # type: ignore
         
         self.statusBar = QLabel(self)
-        self.statusBar.setGeometry(0, 75, 520, 20)
+        self.statusBar.setGeometry(0, 130, 470, 20)
         self.statusBar.setStyleSheet("background-color: #F0F0F0;")
         
     def initUITexts(self) -> None:
