@@ -148,6 +148,8 @@ class MainWindow(QWidget):
         
     def closeEvent(self, a0: QCloseEvent | None) -> None:
         self.isClose = True
+        self.close()
+        sleep(0.5)
         return super().closeEvent(a0)
         
 class AboutWindow(QWidget):
