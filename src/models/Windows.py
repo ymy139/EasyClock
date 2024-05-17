@@ -303,7 +303,7 @@ class SettingsWindow(QWidget):
         
     def saveSettings(self) -> None:
         settings = Funcs.Settings.getSettingsFromWindow(self)
-        if self.dialog.selectedMimeTypeFilter() == "application/octet-stream":
+        if getattr(self, "dialog", None) != None and self.dialog.selectedMimeTypeFilter() == "application/octet-stream":
             warn = QMessageBox.warning(self, 
                                         "警告", 
                                         "您选择的图片文件可能不受支持，可能出现预料之外的错误。", 
