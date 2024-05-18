@@ -213,7 +213,7 @@ class SettingsWindow(QWidget):
         self.initWindow()
         self.initUIWidget()
         self.initUITexts()
-        self.initSettingsItem()
+        self.initSettingsItemContent()
         self.about.clicked.connect(self.showAbout)
         self.accept.clicked.connect(self.saveSettings)
         self.focusModeBackground_choose.clicked.connect(self.chooseFocusModeBgImg)
@@ -223,12 +223,12 @@ class SettingsWindow(QWidget):
         self.fontName = QFontDatabase.applicationFontFamilies(fontID_ui)[0]
         
     def initWindow(self) -> None:
-        self.resize(470, 150)
+        self.resize(470, 180)
         self.setStyleSheet("background-color: rgb(249, 249, 249);")
         self.setWindowTitle("EasyClock - 设置")
         self.setWindowIcon(QIcon("resources/imgs/icon.ico"))
-        self.setMaximumSize(470, 150)
-        self.setMinimumSize(470, 150)
+        self.setMaximumSize(470, 180)
+        self.setMinimumSize(470, 180)
         
     def initUIWidget(self) -> None: 
         # focusModeBackground
@@ -258,7 +258,6 @@ class SettingsWindow(QWidget):
         self.countDown_month_num.setGeometry(45, 85, 110, 33)
         self.countDown_month_num.setMinimum(1)
         self.countDown_month_num.setMaximum(12)
-        self.countDown_month_num.setValue(6)
         
         self.countDown_day_label = QLabel(self)
         self.countDown_day_label.setGeometry(160, 85, 20, 33)
@@ -269,33 +268,44 @@ class SettingsWindow(QWidget):
         self.countDown_day_num.setGeometry(185, 85, 110, 33)
         self.countDown_day_num.setMinimum(1)
         self.countDown_day_num.setMaximum(31)
-        self.countDown_day_num.setValue(7)
+        
+        self.countDown_text_label = QLabel(self)
+        self.countDown_text_label.setGeometry(20, 125, 80, 25)
+        self.countDown_text_label.setFont(QFont(self.fontName, 12))
+        self.countDown_text_label.setText("倒计时内容")
+        
+        self.countDown_text_input = LineEdit(self)
+        self.countDown_text_input.setGeometry(105, 120, 190, 33)
         
         self.alwaysOnTop = CheckBox(self)
-        self.alwaysOnTop.setGeometry(355, 65, 85, 22)
+        self.alwaysOnTop.setGeometry(355, 80, 85, 22)
         
         self.about = PushButton(self)
-        self.about.setGeometry(340, 95, 60, 30)
+        self.about.setGeometry(340, 120, 60, 33)
         
         self.accept = PushButton(self)
-        self.accept.setGeometry(405, 95, 60, 30)
+        self.accept.setGeometry(405, 120, 60, 33)
         
         self.statusBar = QLabel(self)
-        self.statusBar.setGeometry(0, 130, 470, 20)
+        self.statusBar.setGeometry(0, 160, 470, 20)
         self.statusBar.setStyleSheet("background-color: #F0F0F0;")
         
     def initUITexts(self) -> None:
         self.focusModeBackground_label.setText("专注模式背景图片")
         self.focusModeBackground_input.setPlaceholderText("输入图片路径或点击右侧按钮选择文件")
+        self.countDown_text_input.setPlaceholderText("这将显示在倒计时之前")
         self.alwaysOnTop.setText("窗口置顶")
         self.about.setText("关于")
         self.accept.setText("应用")
         
-    def initSettingsItem(self) -> None:
+    def initSettingsItemContent(self) -> None:
         settings = Funcs.Settings.readSettings()
         if settings["window"]["alwaysOnTop"] == True: # type: ignore
             self.alwaysOnTop.setChecked(True)
         self.focusModeBackground_input.setText(settings["theme"]["focusMode"]["background"]) # type: ignore
+        self.countDown_month_num.setValue(settings["window"]["countDown"]["month"]) # type: ignore
+        self.countDown_day_num.setValue(settings["window"]["countDown"]["day"]) # type: ignore
+        self.countDown_text_input.setText(settings["window"]["countDown"]["text"]) # type: ignore
         
     def showAbout(self) -> None:
         self.aboutWindow = AboutWindow()

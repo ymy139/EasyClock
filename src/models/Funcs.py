@@ -190,7 +190,8 @@ class Settings():
             "alwaysOnTop": False,
             "countDown": {
                 "month": 6,
-                "day": 7
+                "day": 7,
+                "text": "高考倒计时"
             }
         },
         "theme": {
@@ -229,7 +230,8 @@ class Settings():
                 "alwaysOnTop": settingsWindow.alwaysOnTop.isChecked(),
                 "countDown": {
                     "month": settingsWindow.countDown_month_num.value(),
-                    "day": settingsWindow.countDown_day_num.value()
+                    "day": settingsWindow.countDown_day_num.value(),
+                    "text": settingsWindow.countDown_text_input.text()
                 }
             },
             "theme": {

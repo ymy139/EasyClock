@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>470</width>
-    <height>150</height>
+    <height>180</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -48,10 +48,10 @@
   <widget class="PushButton" name="PushButton_2">
    <property name="geometry">
     <rect>
-     <x>405</x>
-     <y>95</y>
+     <x>340</x>
+     <y>120</y>
      <width>60</width>
-     <height>30</height>
+     <height>33</height>
     </rect>
    </property>
    <property name="text">
@@ -81,7 +81,7 @@
    <property name="geometry">
     <rect>
      <x>355</x>
-     <y>65</y>
+     <y>80</y>
      <width>85</width>
      <height>22</height>
     </rect>
@@ -93,10 +93,10 @@
   <widget class="PushButton" name="PushButton">
    <property name="geometry">
     <rect>
-     <x>340</x>
-     <y>95</y>
+     <x>405</x>
+     <y>120</y>
      <width>60</width>
-     <height>30</height>
+     <height>33</height>
     </rect>
    </property>
    <property name="text">
@@ -107,7 +107,7 @@
    <property name="geometry">
     <rect>
      <x>0</x>
-     <y>130</y>
+     <y>160</y>
      <width>470</width>
      <height>20</height>
     </rect>
@@ -200,6 +200,38 @@
    </property>
    <property name="text">
     <string>日</string>
+   </property>
+  </widget>
+  <widget class="LineEdit" name="LineEdit_2">
+   <property name="geometry">
+    <rect>
+     <x>105</x>
+     <y>120</y>
+     <width>190</width>
+     <height>33</height>
+    </rect>
+   </property>
+   <property name="placeholderText">
+    <string>这将显示在倒计时之前</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_6">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>125</y>
+     <width>80</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>思源黑体 CN Regular</family>
+     <pointsize>12</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>倒计时内容</string>
    </property>
   </widget>
  </widget>
