@@ -216,7 +216,7 @@ class SettingsWindow(QWidget):
         self.initSettingsItem()
         self.about.clicked.connect(self.showAbout)
         self.accept.clicked.connect(self.saveSettings)
-        self.focusModeBackground[2].clicked.connect(self.chooseFocusModeBgImg) # type: ignore
+        self.focusModeBackground_choose.clicked.connect(self.chooseFocusModeBgImg)
         
     def loadFonts(self) -> None:
         fontID_ui = QFontDatabase.addApplicationFont("resources/fonts/ui.ttf")
@@ -231,18 +231,45 @@ class SettingsWindow(QWidget):
         self.setMinimumSize(470, 150)
         
     def initUIWidget(self) -> None: 
-        self.focusModeBackground: list[QWidget] = [
-            QLabel(self),
-            LineEdit(self),
-            ToolButton(self)
-        ]
-        self.focusModeBackground[0].setGeometry(15, 0, 130, 25)
-        self.focusModeBackground[0].setFont(QFont(self.fontName, 12))
+        # focusModeBackground
+        self.focusModeBackground_label = QLabel(self)
+        self.focusModeBackground_label.setGeometry(15, 0, 130, 25)
+        self.focusModeBackground_label.setFont(QFont(self.fontName, 12))
         
-        self.focusModeBackground[1].setGeometry(10, 25, 410, 33)
+        self.focusModeBackground_input = LineEdit(self)
+        self.focusModeBackground_input.setGeometry(10, 25, 410, 33)
         
-        self.focusModeBackground[2].setGeometry(425, 35, 35, 33)
-        self.focusModeBackground[2].setIcon(FluentIcon.MORE) # type: ignore
+        self.focusModeBackground_choose = ToolButton(self)
+        self.focusModeBackground_choose.setGeometry(425, 25, 35, 33)
+        self.focusModeBackground_choose.setIcon(FluentIcon.MORE)
+        
+        # countDown
+        self.countDown_label = QLabel(self)
+        self.countDown_label.setGeometry(15, 60, 100, 25)
+        self.countDown_label.setText("自定义倒计时")
+        self.countDown_label.setFont(QFont(self.fontName, 12))
+        
+        self.countDown_month_label = QLabel(self)
+        self.countDown_month_label.setGeometry(20, 85, 20, 33)
+        self.countDown_month_label.setFont(QFont(self.fontName, 12))
+        self.countDown_month_label.setText("月")
+        
+        self.countDown_month_num = SpinBox(self)
+        self.countDown_month_num.setGeometry(45, 85, 110, 33)
+        self.countDown_month_num.setMinimum(1)
+        self.countDown_month_num.setMaximum(12)
+        self.countDown_month_num.setValue(6)
+        
+        self.countDown_day_label = QLabel(self)
+        self.countDown_day_label.setGeometry(160, 85, 20, 33)
+        self.countDown_day_label.setFont(QFont(self.fontName, 12))
+        self.countDown_day_label.setText("日")
+        
+        self.countDown_day_num = SpinBox(self)
+        self.countDown_day_num.setGeometry(185, 85, 110, 33)
+        self.countDown_day_num.setMinimum(1)
+        self.countDown_day_num.setMaximum(31)
+        self.countDown_day_num.setValue(7)
         
         self.alwaysOnTop = CheckBox(self)
         self.alwaysOnTop.setGeometry(355, 65, 85, 22)
@@ -253,42 +280,13 @@ class SettingsWindow(QWidget):
         self.accept = PushButton(self)
         self.accept.setGeometry(405, 95, 60, 30)
         
-        self.countDown: list[QWidget] = [
-            QLabel(self),
-            QLabel(self),
-            SpinBox(self),
-            QLabel(self),
-            SpinBox(self)
-        ]
-        self.countDown[0].setGeometry(15, 60, 100, 25)
-        self.countDown[0].setText("自定义倒计时") # type: ignore
-        self.countDown[0].setFont(QFont(self.fontName, 12))
-        
-        self.countDown[1].setGeometry(20, 85, 20, 33)
-        self.countDown[1].setFont(QFont(self.fontName, 12))
-        self.countDown[1].setText("月") # type: ignore
-        
-        self.countDown[2].setGeometry(45, 85, 110, 33)
-        self.countDown[2].setMinimum(1) # type: ignore
-        self.countDown[2].setMaximum(12) # type: ignore
-        self.countDown[2].setValue(6) # type: ignore
-        
-        self.countDown[3].setGeometry(160, 85, 20, 33)
-        self.countDown[3].setFont(QFont(self.fontName, 12))
-        self.countDown[3].setText("日") # type: ignore
-        
-        self.countDown[4].setGeometry(185, 85, 110, 33)
-        self.countDown[4].setMinimum(1) # type: ignore
-        self.countDown[4].setMaximum(31) # type: ignore
-        self.countDown[4].setValue(7) # type: ignore
-        
         self.statusBar = QLabel(self)
         self.statusBar.setGeometry(0, 130, 470, 20)
         self.statusBar.setStyleSheet("background-color: #F0F0F0;")
         
     def initUITexts(self) -> None:
-        self.focusModeBackground[0].setText("专注模式背景图片") # type: ignore
-        self.focusModeBackground[1].setPlaceholderText("输入图片路径或点击右侧按钮选择文件") # type: ignore
+        self.focusModeBackground_label.setText("专注模式背景图片")
+        self.focusModeBackground_input.setPlaceholderText("输入图片路径或点击右侧按钮选择文件")
         self.alwaysOnTop.setText("窗口置顶")
         self.about.setText("关于")
         self.accept.setText("应用")
@@ -297,7 +295,7 @@ class SettingsWindow(QWidget):
         settings = Funcs.Settings.readSettings()
         if settings["window"]["alwaysOnTop"] == True: # type: ignore
             self.alwaysOnTop.setChecked(True)
-        self.focusModeBackground[1].setText(settings["theme"]["focusMode"]["background"]) # type: ignore
+        self.focusModeBackground_input.setText(settings["theme"]["focusMode"]["background"]) # type: ignore
         
     def showAbout(self) -> None:
         self.aboutWindow = AboutWindow()
@@ -327,7 +325,7 @@ class SettingsWindow(QWidget):
         self.dialog.selectMimeTypeFilter("image/jpeg")
         if self.dialog.exec() == QFileDialog.DialogCode.Accepted:
             selectedFile = self.dialog.selectedFiles()[0]
-            self.focusModeBackground[1].setText(selectedFile) # type: ignore
+            self.focusModeBackground_input.setText(selectedFile)
    
 class Slots(object):
     def __init__(self, window: MainWindow) -> None:

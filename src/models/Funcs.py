@@ -228,13 +228,13 @@ class Settings():
             "window": {
                 "alwaysOnTop": settingsWindow.alwaysOnTop.isChecked(),
                 "countDown": {
-                    "month": settingsWindow.countDown[2].value(), # type: ignore
-                    "day": settingsWindow.countDown[4].value() # type: ignore
+                    "month": settingsWindow.countDown_month_num.value(),
+                    "day": settingsWindow.countDown_day_num.value()
                 }
             },
             "theme": {
                 "focusMode": {
-                    "background": settingsWindow.focusModeBackground[1].text() # type: ignore
+                    "background": settingsWindow.focusModeBackground_input.text()
                 }
             }
         }
