@@ -203,6 +203,12 @@ class Settings():
     
     @staticmethod
     def readSettings() -> configDictType:
+        """read settings from `config/config.json`, if the file doesn't exist, then 
+        return default settings
+
+        Returns:
+            configDictType: settings
+        """
         if access("config/config.json", F_OK):
             return loadJSON(open("config/config.json", "r", encoding="utf-8")
                             .read())
@@ -211,6 +217,14 @@ class Settings():
     
     @staticmethod
     def saveSettings(settings: configDictType) -> None:
+        """save settings to `config/config.json`
+
+        Args:
+            settings (configDictType): settings to be saved
+
+        Raises:
+            FileNotFoundError: raise if the focus mode background image doesn't exist
+        """
         # Determine if it is a legal configuration
         if not access(settings["theme"]["focusMode"]["background"], F_OK): # type: ignore
             raise FileNotFoundError("专注模式背景图片不存在！")
@@ -224,6 +238,14 @@ class Settings():
     
     @staticmethod
     def getSettingsFromWindow(settingsWindow: SettingsWindow) -> configDictType:
+        """get setting from settings window
+
+        Args:
+            settingsWindow (SettingsWindow): instantiated `SettingsWindow`
+
+        Returns:
+            configDictType: settings obtained
+        """
         return {
             "configFmtVersion": 1,
             "window": {
