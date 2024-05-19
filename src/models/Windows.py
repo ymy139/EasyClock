@@ -354,11 +354,11 @@ class Slots(object):
     def addToDoItem(self) -> None:
         newItem = QListWidgetItem(self.window.toDoList)
         newItem.setText("新建待办事项")
-        newItem.setFlags(Qt.ItemFlag.ItemIsEditable | 
-                        Qt.ItemFlag.ItemIsSelectable | 
-                        Qt.ItemFlag.ItemIsDragEnabled | 
-                        Qt.ItemFlag.ItemIsUserCheckable | 
-                        Qt.ItemFlag.ItemIsEnabled)
+        newItem.setFlags(Qt.ItemFlag.ItemIsEditable |
+                         Qt.ItemFlag.ItemIsSelectable |
+                         Qt.ItemFlag.ItemIsDragEnabled |
+                         Qt.ItemFlag.ItemIsUserCheckable |
+                         Qt.ItemFlag.ItemIsEnabled)
 
     def delToDoItem(self) -> None:
         currentItem = self.window.toDoList.currentItem()
@@ -367,7 +367,7 @@ class Slots(object):
             self.window.toDoList.takeItem(row)
         
     def updataWindow(self) -> None:
-            while True:
+            while not self.window.isClose:
                 nowTime = Funcs.getNowTime()
                 lunarDay = Funcs.solarToLunar(int(strftime("%Y")), 
                                             int(strftime("%m")), 
@@ -381,13 +381,12 @@ class Slots(object):
                                     nowTime["weekday"]+" "+
                                     Funcs.getLunarDateString(lunarDay[1], lunarDay[2]))
                 
+                self.window.greeting.setText(Funcs.getGreetingSentence(int(strftime("%H"))))
+                
                 self.window.countdown.setText("高考倒计时："+str(Funcs.calculateCountdown(6, 7))+"天")
                 
-                if self.window.isClose == True:
-                    break
-                else:
-                    QApplication.processEvents()
-                    sleep(0.2)
+                QApplication.processEvents()
+                sleep(0.2)
         
 if __name__ == "__main__":
     import sys
