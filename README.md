@@ -32,6 +32,14 @@
 2. 运行`poetry install`来安装依赖（本项目默认使用清华大学、阿里云、北京外国语大学镜像源以提升依赖安装速度）
 3. 完成代码编写后提交pr，注意检查代码规范，git提交信息参阅vscode插件git-commit-plugin
 
+### 编译指南
+本项目使用`pyinstaller + NSIS`进行python打包及制作安装程序
+1. 运行`poetry install`来安装依赖（见贡献者指南）
+2. 使用`pyinstaller`打包，注意要将打包后的文件输出到`dist/main/`中，否则NSIS将找不到文件
+3. 使用NSIS编译`src/installer.nsi`文件
+
+*注：`installer.nsi`脚本未经测试，可能出现Bug*
+
 ### 关于
 本软件由ymy139开发  
 当前版本：v0.1.0  
