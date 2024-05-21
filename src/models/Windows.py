@@ -387,12 +387,3 @@ class Slots(object):
                 
                 QApplication.processEvents()
                 sleep(0.2)
-        
-if __name__ == "__main__":
-    import sys
-    app = QApplication(sys.argv)
-    # win = MainWindow()
-    # win = AboutWindow()
-    win = SettingsWindow()
-    win.show()
-    exit(app.exec())
