@@ -5,13 +5,19 @@ from os import chdir
 from os.path import split, normpath
 
 from PyQt6.QtWidgets import QApplication
+from PyQt6.QtCore import Qt
 
 from models import Funcs, Windows
 
 chdir(normpath(split(__file__)[0]+"\\.."))
 
+settings = Funcs.Settings.readSettings()
+
 app = QApplication(argv)
-window = Windows.MainWindow()
+if settings["window"]["alwaysOnTop"] == True: # type: ignore
+    window = Windows.MainWindow(Qt.WindowType.WindowStaysOnTopHint)
+else:
+    window = Windows.MainWindow()
 slots = Windows.Slots(window)
 
 window.greeting.setText(Funcs.getGreetingSentence(int(strftime("%H"))))

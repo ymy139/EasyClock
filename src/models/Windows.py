@@ -143,7 +143,7 @@ class MainWindow(QWidget):
         self.separators["toDoList--menuBar"].setStyleSheet("background-color: rgb(160, 160, 160);")
         
     def showSettings(self) -> None:
-        self.settingsWindow = SettingsWindow()
+        self.settingsWindow = SettingsWindow(self.windowFlags())
         self.settingsWindow.show()
         
     def closeEvent(self, a0: QCloseEvent | None) -> None:
@@ -153,8 +153,8 @@ class MainWindow(QWidget):
         return super().closeEvent(a0)
         
 class AboutWindow(QWidget):
-    def __init__(self) -> None:
-        super().__init__()
+    def __init__(self, flags: Qt.WindowType) -> None:
+        super().__init__(flags=flags)
         self.loadFonts()
         self.initWindow()
         self.initUIWidget()
@@ -207,8 +207,8 @@ class AboutWindow(QWidget):
         self.ok.setText("确认")
         
 class SettingsWindow(QWidget):
-    def __init__(self) -> None:
-        super().__init__()
+    def __init__(self, flags: Qt.WindowType) -> None:
+        super().__init__(flags=flags)
         self.loadFonts()
         self.initWindow()
         self.initUIWidget()
@@ -308,7 +308,7 @@ class SettingsWindow(QWidget):
         self.countDown_text_input.setText(settings["window"]["countDown"]["text"]) # type: ignore
         
     def showAbout(self) -> None:
-        self.aboutWindow = AboutWindow()
+        self.aboutWindow = AboutWindow(self.windowFlags())
         self.aboutWindow.show()
         
     def saveSettings(self) -> None:
