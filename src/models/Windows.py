@@ -369,21 +369,26 @@ class Slots(object):
     def updataWindow(self) -> None:
             while not self.window.isClose:
                 nowTime = Funcs.getNowTime()
+                settings = Funcs.Settings.readSettings()
+                
                 lunarDay = Funcs.solarToLunar(int(strftime("%Y")), 
-                                            int(strftime("%m")), 
-                                            int(strftime("%d")))
+                                              int(strftime("%m")), 
+                                              int(strftime("%d")))
                 
                 self.window.timeWidget["hour"].setText(nowTime["hour"])
                 self.window.timeWidget["minute"].setText(nowTime["minute"])
                 self.window.timeWidget["second"].setText(nowTime["second"])
                 
                 self.window.date.setText(strftime("%Y年%m月%d日")+" "+
-                                    nowTime["weekday"]+" "+
-                                    Funcs.getLunarDateString(lunarDay[1], lunarDay[2]))
+                                         nowTime["weekday"]+" "+
+                                         Funcs.getLunarDateString(lunarDay[1], lunarDay[2]))
                 
                 self.window.greeting.setText(Funcs.getGreetingSentence(int(strftime("%H"))))
                 
-                self.window.countdown.setText("高考倒计时："+str(Funcs.calculateCountdown(6, 7))+"天")
+                self.window.countdown.setText(settings["window"]["countDown"]["text"] + ": " + # type: ignore
+                                              str(Funcs.calculateCountdown(settings["window"]["countDown"]["month"], # type: ignore
+                                                                           settings["window"]["countDown"]["day"])) + # type: ignore
+                                              "天")
                 
                 QApplication.processEvents()
                 sleep(0.2)
