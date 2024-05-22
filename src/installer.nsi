@@ -3,11 +3,11 @@
 ; 自定义安装程序请更改以下常量
 !define INSTALL_ICON "${NSISDIR}\Contrib\Graphics\Icons\orange-install.ico"
 !define UNINSTALL_ICON "${NSISDIR}\Contrib\Graphics\Icons\orange-uninstall.ico"
-!define VERISON "v0.1.0"
+!define VERISON "0.1.0"
 !define PROJECT_DIR "D:\Project\EasyClock"
 
 !define PRODUCT_NAME "EasyClock"
-!define PRODUCT_VERSION "${VERISON}"
+!define PRODUCT_VERSION "v${VERISON}"
 !define PRODUCT_PUBLISHER "ymy139"
 !define PRODUCT_DIR_REGKEY "Software\Microsoft\Windows\CurrentVersion\App Paths\main.exe"
 !define PRODUCT_UNINST_KEY "Software\Microsoft\Windows\CurrentVersion\Uninstall\${PRODUCT_NAME}"
@@ -44,7 +44,7 @@ var ICONS_GROUP
 !insertmacro MUI_RESERVEFILE_INSTALLOPTIONS
 
 Name "${PRODUCT_NAME}"
-OutFile "${PROJECT_DIR}\dist\installer\Setup.exe"
+OutFile "${PROJECT_DIR}\dist\installer\EasyClock_${VERISON}.exe"
 InstallDir "$PROGRAMFILES\EasyClock"
 InstallDirRegKey HKLM "${PRODUCT_UNINST_KEY}" "UninstallString"
 ShowInstDetails show
