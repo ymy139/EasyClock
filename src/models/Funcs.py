@@ -226,7 +226,8 @@ class Settings():
             FileNotFoundError: raise if the focus mode background image doesn't exist
         """
         # Determine if it is a legal configuration
-        if not access(settings["theme"]["focusMode"]["background"], F_OK): # type: ignore
+        if (not settings["theme"]["focusMode"]["background"] == "" and # type: ignore
+            not access(settings["theme"]["focusMode"]["background"], F_OK)): # type: ignore
             raise FileNotFoundError("专注模式背景图片不存在！")
         
         if not access("config", F_OK):
