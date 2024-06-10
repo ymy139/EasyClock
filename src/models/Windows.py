@@ -5,7 +5,7 @@ from PyQt6.QtCore import Qt
 from PyQt6.QtWidgets import QWidget, QLabel, QApplication, QListWidgetItem, QFileDialog, QMessageBox
 from qfluentwidgets import PushButton, ListWidget, LineEdit, CheckBox, FluentIcon, ToolButton, SpinBox
 
-from . import Funcs
+from . import Funcs, Settings, DateAndTime
 
 class MainWindow(QWidget):
     def __init__(self, flags: Qt.WindowType | None = None) -> None:
@@ -299,7 +299,7 @@ class SettingsWindow(QWidget):
         self.accept.setText("应用")
         
     def initSettingsItemContent(self) -> None:
-        settings = Funcs.Settings.readSettings()
+        settings = Settings.readSettings()
         if settings["window"]["alwaysOnTop"] == True: # type: ignore
             self.alwaysOnTop.setChecked(True)
         self.focusModeBackground_input.setText(settings["theme"]["focusMode"]["background"]) # type: ignore
@@ -312,7 +312,7 @@ class SettingsWindow(QWidget):
         self.aboutWindow.show()
         
     def saveSettings(self) -> None:
-        settings = Funcs.Settings.getSettingsFromWindow(self)
+        settings = Settings.getSettingsFromWindow(self)
         if getattr(self, "dialog", None) != None and self.dialog.selectedMimeTypeFilter() == "application/octet-stream":
             warn = QMessageBox.warning(self, 
                                         "警告", 
@@ -322,7 +322,7 @@ class SettingsWindow(QWidget):
             if warn == QMessageBox.StandardButton.Cancel:
                 return None
         try:
-            Funcs.Settings.saveSettings(settings)
+            Settings.saveSettings(settings)
             self.statusBar.setText(strftime("  %Y/%m/%d - %H:%M:%S  ") + "已保存设置，重新启动软件以生效。")
         except BaseException as errorMsg:
             self.statusBar.setText(strftime("  %Y/%m/%d - %H:%M:%S  ") + "保存失败：" + str(errorMsg))
@@ -368,10 +368,10 @@ class Slots(object):
         
     def updataWindow(self) -> None:
             while not self.window.isClose:
-                nowTime = Funcs.getNowTime()
-                settings = Funcs.Settings.readSettings()
+                nowTime = DateAndTime.getNowTime()
+                settings = Settings.readSettings()
                 
-                lunarDay = Funcs.solarToLunar(int(strftime("%Y")), 
+                lunarDay = DateAndTime.solarToLunar(int(strftime("%Y")), 
                                               int(strftime("%m")), 
                                               int(strftime("%d")))
                 
@@ -381,12 +381,12 @@ class Slots(object):
                 
                 self.window.date.setText(strftime("%Y年%m月%d日")+" "+
                                          nowTime["weekday"]+" "+
-                                         Funcs.getLunarDateString(lunarDay[1], lunarDay[2]))
+                                         DateAndTime.getLunarDateString(lunarDay[1], lunarDay[2]))
                 
                 self.window.greeting.setText(Funcs.getGreetingSentence(int(strftime("%H"))))
                 
                 self.window.countdown.setText(settings["window"]["countDown"]["text"] + ": " + # type: ignore
-                                              str(Funcs.calculateCountdown(settings["window"]["countDown"]["month"], # type: ignore
+                                              str(DateAndTime.calculateCountdown(settings["window"]["countDown"]["month"], # type: ignore
                                                                            settings["window"]["countDown"]["day"])) + # type: ignore
                                               "天")
                 

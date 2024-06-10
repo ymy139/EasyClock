@@ -7,11 +7,11 @@ from os.path import split, normpath
 from PyQt6.QtWidgets import QApplication
 from PyQt6.QtCore import Qt
 
-from models import Funcs, Windows
+from models import Funcs, Settings, Windows
 
 chdir(normpath(split(__file__)[0]+"\\.."))
 
-settings = Funcs.Settings.readSettings()
+settings = Settings.readSettings()
 
 app = QApplication(argv)
 if settings["window"]["alwaysOnTop"] == True: # type: ignore
