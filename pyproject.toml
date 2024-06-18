@@ -16,6 +16,10 @@ lunardate = "^0.2.2"
 pyqt6-fluent-widgets = "^1.5.5"
 pyinstaller = "^6.6.0"
 winrt-windows-media-control = "^2.0.1"
+winrt-windows-foundation = "^2.0.1"
+winrt-windows-storage = "^2.0.1"
+winrt-windows-storage-streams = "^2.0.1"
+winrt-windows-foundation-collections = "^2.0.1"
 
 [[tool.poetry.source]]
 name = "mirrors_tuna"

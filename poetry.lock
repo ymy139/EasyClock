@@ -4151,6 +4151,72 @@ url = "https://pypi.tuna.tsinghua.edu.cn/simple"
 reference = "mirrors_tuna"
 
 [[package]]
+name = "winrt-windows-foundation"
+version = "2.0.1"
+description = "Python projection of Windows Runtime (WinRT) APIs"
+optional = false
+python-versions = "<3.13,>=3.9"
+files = [
+    {file = "winrt_Windows.Foundation-2.0.1-cp310-cp310-win32.whl", hash = "sha256:f8cdc6f1f81e241a8a4d19f9d323828e61d75bd77fecfbe0c4d735e385326c4e"},
+    {file = "winrt_Windows.Foundation-2.0.1-cp310-cp310-win_amd64.whl", hash = "sha256:b8868c73642c66798c18ce8021796acb9beea59b6d2361344e8776c27ab847c7"},
+    {file = "winrt_Windows.Foundation-2.0.1-cp310-cp310-win_arm64.whl", hash = "sha256:4b5df8a9f69b15c71fe9b6f4f8e8589fe043d4d7ab843bb73607c7a4adde68f1"},
+    {file = "winrt_Windows.Foundation-2.0.1-cp311-cp311-win32.whl", hash = "sha256:28ad6cd21126cc75cfb28527489e06699b36d8d6d5fdea5487e51c85ea9cc358"},
+    {file = "winrt_Windows.Foundation-2.0.1-cp311-cp311-win_amd64.whl", hash = "sha256:75d5a4974662ca11eab1438a711433951bef2e7db156b0c7ca34f47fbd19f117"},
+    {file = "winrt_Windows.Foundation-2.0.1-cp311-cp311-win_arm64.whl", hash = "sha256:d129a9fdfe5205bff2e9ccad705539fabd485ce6a8e47ded876aa664545b5216"},
+    {file = "winrt_Windows.Foundation-2.0.1-cp312-cp312-win32.whl", hash = "sha256:a1dd4c93f435fd2f8f6e180af1cd2d3af8d22518b4c25c843e0b850b38e8be0f"},
+    {file = "winrt_Windows.Foundation-2.0.1-cp312-cp312-win_amd64.whl", hash = "sha256:3c54ac18fea4a488dae8a3261f6633c17ed2a632c35d15112caa9294f8c5560d"},
+    {file = "winrt_Windows.Foundation-2.0.1-cp312-cp312-win_arm64.whl", hash = "sha256:29f648a66a3e3285fcb5fdd1821582d60f6b3021e5dcc02acb008c8f48f15e7a"},
+    {file = "winrt_Windows.Foundation-2.0.1-cp39-cp39-win32.whl", hash = "sha256:7abbf10666d6da5dbfb6a47125786a05dac267731a3d38feb8faddade9bf1151"},
+    {file = "winrt_Windows.Foundation-2.0.1-cp39-cp39-win_amd64.whl", hash = "sha256:aab18ad12de63a353ab1847aff3216ba4e5499e328da5edcb72c8007da6bdb02"},
+    {file = "winrt_Windows.Foundation-2.0.1-cp39-cp39-win_arm64.whl", hash = "sha256:bde9ecfc1c75410d669ee3124a84ba101d5a8ab1911807ad227658624fc22ffb"},
+    {file = "winrt_windows_foundation-2.0.1.tar.gz", hash = "sha256:6e4da10cff652ac17740753c38ebe69565f5f970f60100106469b2e004ef312c"},
+]
+
+[package.dependencies]
+winrt-runtime = "2.0.1"
+
+[package.extras]
+all = ["winrt-Windows.Foundation.Collections[all] (==2.0.1)"]
+
+[package.source]
+type = "legacy"
+url = "https://pypi.tuna.tsinghua.edu.cn/simple"
+reference = "mirrors_tuna"
+
+[[package]]
+name = "winrt-windows-foundation-collections"
+version = "2.0.1"
+description = "Python projection of Windows Runtime (WinRT) APIs"
+optional = false
+python-versions = "<3.13,>=3.9"
+files = [
+    {file = "winrt_Windows.Foundation.Collections-2.0.1-cp310-cp310-win32.whl", hash = "sha256:805f8d9a2f61276eb8e4284d439c61893c5acca0c17265f6dc10b8747c89bc39"},
+    {file = "winrt_Windows.Foundation.Collections-2.0.1-cp310-cp310-win_amd64.whl", hash = "sha256:2464c2b67e732f7e05497ea04ee43b9926743f10e8766c90a279270a3afe4b6a"},
+    {file = "winrt_Windows.Foundation.Collections-2.0.1-cp310-cp310-win_arm64.whl", hash = "sha256:ab1094c0091c573b1ecf72fd3cd8380d6eef9e6d0f59ccc5e676c697702eddc2"},
+    {file = "winrt_Windows.Foundation.Collections-2.0.1-cp311-cp311-win32.whl", hash = "sha256:be0bd1b45252da5142b6ee80e3e488ad50931c6595e70674556ccad36080f2a9"},
+    {file = "winrt_Windows.Foundation.Collections-2.0.1-cp311-cp311-win_amd64.whl", hash = "sha256:a4f299a006266632240cc66ade8d82db6167a769fb1b5ec76cf22f2dfb43777a"},
+    {file = "winrt_Windows.Foundation.Collections-2.0.1-cp311-cp311-win_arm64.whl", hash = "sha256:84d66f1e2c8896534cfca80eaf4508e25d34e34b37b1e2eb4beb7462220edf78"},
+    {file = "winrt_Windows.Foundation.Collections-2.0.1-cp312-cp312-win32.whl", hash = "sha256:d36a49ee53c8726148cac1920bf57a95b07eab576275b5efb0e97adea6fdacb2"},
+    {file = "winrt_Windows.Foundation.Collections-2.0.1-cp312-cp312-win_amd64.whl", hash = "sha256:c63e46569024e1504cc8e3b4f233e69162bc92e0428b4e92cb7dbc7cdc89db5f"},
+    {file = "winrt_Windows.Foundation.Collections-2.0.1-cp312-cp312-win_arm64.whl", hash = "sha256:5f5aac867f2b2fbc65e453c942bfde5bb158e60f47d2615455143fab335694e8"},
+    {file = "winrt_Windows.Foundation.Collections-2.0.1-cp39-cp39-win32.whl", hash = "sha256:c26ab7b3342669dc09be62db5c5434e7194fb6eb1ec5b03fba1163f6b3e7b843"},
+    {file = "winrt_Windows.Foundation.Collections-2.0.1-cp39-cp39-win_amd64.whl", hash = "sha256:2f9bc7e28f3ade1c1f3113939dbf630bfef5e3c3018c039a404d7e4d39aae4cb"},
+    {file = "winrt_Windows.Foundation.Collections-2.0.1-cp39-cp39-win_arm64.whl", hash = "sha256:1f3e76f3298bec3938d94e4857c29af9776ec78112bdd09bb7794f06fd38bb13"},
+    {file = "winrt_windows_foundation_collections-2.0.1.tar.gz", hash = "sha256:7d18955f161ba27d785c8fe2ef340f338b6edd2c5226fe2b005840e2a855e708"},
+]
+
+[package.dependencies]
+winrt-runtime = "2.0.1"
+
+[package.extras]
+all = ["winrt-Windows.Foundation[all] (==2.0.1)"]
+
+[package.source]
+type = "legacy"
+url = "https://pypi.tuna.tsinghua.edu.cn/simple"
+reference = "mirrors_tuna"
+
+[[package]]
 name = "winrt-windows-media-control"
 version = "2.0.1"
 description = "Python projection of Windows Runtime (WinRT) APIs"
@@ -4184,6 +4250,72 @@ url = "https://pypi.tuna.tsinghua.edu.cn/simple"
 reference = "mirrors_tuna"
 
 [[package]]
+name = "winrt-windows-storage"
+version = "2.0.1"
+description = "Python projection of Windows Runtime (WinRT) APIs"
+optional = false
+python-versions = "<3.13,>=3.9"
+files = [
+    {file = "winrt_Windows.Storage-2.0.1-cp310-cp310-win32.whl", hash = "sha256:f86fc3d4a892ab89617892fe8c1ea36e11b21aff2e1522092e3f6719ee4c7f59"},
+    {file = "winrt_Windows.Storage-2.0.1-cp310-cp310-win_amd64.whl", hash = "sha256:aa811ced3e02ee0be76db0fa000f3b13a3d007a9d411918eccd6ec4667685df6"},
+    {file = "winrt_Windows.Storage-2.0.1-cp310-cp310-win_arm64.whl", hash = "sha256:3df6659d57dfae113443149783414fff31d5957155b3981029731d884bba26f3"},
+    {file = "winrt_Windows.Storage-2.0.1-cp311-cp311-win32.whl", hash = "sha256:023caa206b420589cc86840d14c4588ceaa5e63cb3671846e3492f32691ac3fb"},
+    {file = "winrt_Windows.Storage-2.0.1-cp311-cp311-win_amd64.whl", hash = "sha256:8cc94d253720c4bf84a5e5be57c73153b40349ab560bfcd1df8894093835debe"},
+    {file = "winrt_Windows.Storage-2.0.1-cp311-cp311-win_arm64.whl", hash = "sha256:ab8e95550b5b5ff1bf013261dc0b0f1a9a5a8e44dfe900c7e5f8892fc8a5421c"},
+    {file = "winrt_Windows.Storage-2.0.1-cp312-cp312-win32.whl", hash = "sha256:b2d1af64a38e5a395259e4afc62e9e277177ec2b84c08ebcb3d33f196d2ddfa8"},
+    {file = "winrt_Windows.Storage-2.0.1-cp312-cp312-win_amd64.whl", hash = "sha256:1c68cac52c7c1757a121049c1e0e4bc4cb97178f42c3dcde542176e6dce209a2"},
+    {file = "winrt_Windows.Storage-2.0.1-cp312-cp312-win_arm64.whl", hash = "sha256:8b421376ed82b506fb7517fac1d1106fc1815cfe2f706262a2f37da0cf121df0"},
+    {file = "winrt_Windows.Storage-2.0.1-cp39-cp39-win32.whl", hash = "sha256:1c7b33857d8a210b818e692fd511611dee9b970b0fa4802089617e0a2f91de92"},
+    {file = "winrt_Windows.Storage-2.0.1-cp39-cp39-win_amd64.whl", hash = "sha256:7c2427d0c09cf7510179abc15e48ca037181b19d952284355805cf3cc0be7334"},
+    {file = "winrt_Windows.Storage-2.0.1-cp39-cp39-win_arm64.whl", hash = "sha256:785997ed5d9b594ae570b2ed48339366760ae7307559ef1d0cd326e531232b36"},
+    {file = "winrt_windows_storage-2.0.1.tar.gz", hash = "sha256:322ab77c1244c4a3d18c0b9512e7b0a8df0f63e8c7d1f9d588fa6a4e512c6b62"},
+]
+
+[package.dependencies]
+winrt-runtime = "2.0.1"
+
+[package.extras]
+all = ["winrt-Windows.Foundation.Collections[all] (==2.0.1)", "winrt-Windows.Foundation[all] (==2.0.1)", "winrt-Windows.Storage.FileProperties[all] (==2.0.1)", "winrt-Windows.Storage.Provider[all] (==2.0.1)", "winrt-Windows.Storage.Search[all] (==2.0.1)", "winrt-Windows.Storage.Streams[all] (==2.0.1)", "winrt-Windows.System[all] (==2.0.1)"]
+
+[package.source]
+type = "legacy"
+url = "https://pypi.tuna.tsinghua.edu.cn/simple"
+reference = "mirrors_tuna"
+
+[[package]]
+name = "winrt-windows-storage-streams"
+version = "2.0.1"
+description = "Python projection of Windows Runtime (WinRT) APIs"
+optional = false
+python-versions = "<3.13,>=3.9"
+files = [
+    {file = "winrt_Windows.Storage.Streams-2.0.1-cp310-cp310-win32.whl", hash = "sha256:9e88593f17983b5714957c6f48e7ecdc8fb4410d57cd4b097aded722dc5243d3"},
+    {file = "winrt_Windows.Storage.Streams-2.0.1-cp310-cp310-win_amd64.whl", hash = "sha256:23bfecd91c2b4355f2281dc0cf8a29a32f1783d61f7df8162c29516a30df98a2"},
+    {file = "winrt_Windows.Storage.Streams-2.0.1-cp310-cp310-win_arm64.whl", hash = "sha256:4bbbb6476e25563395834ca0d18a674f3ae97dde8b10e1713f569ec60557ed92"},
+    {file = "winrt_Windows.Storage.Streams-2.0.1-cp311-cp311-win32.whl", hash = "sha256:ed64b2215b6a1ff21c6849948e02fd7f31d1dbf81a4c25871d87dbb97029410e"},
+    {file = "winrt_Windows.Storage.Streams-2.0.1-cp311-cp311-win_amd64.whl", hash = "sha256:5ba46b0c7ca819598d2559c2374be9fb1e374a0d866a4fdca15fc1900d83e080"},
+    {file = "winrt_Windows.Storage.Streams-2.0.1-cp311-cp311-win_arm64.whl", hash = "sha256:0e802596bac1b59476a4a5a0cd68c7bd0483c4c3b4e4a2489768108729213113"},
+    {file = "winrt_Windows.Storage.Streams-2.0.1-cp312-cp312-win32.whl", hash = "sha256:8d04759f1370514f95e486c7fad1ec33047dc8db275dd839bb906d79d2ee6088"},
+    {file = "winrt_Windows.Storage.Streams-2.0.1-cp312-cp312-win_amd64.whl", hash = "sha256:af2a459bdef54702972e05d9ba3bdc3583816404bddb79831f4a7b9a74e37ff1"},
+    {file = "winrt_Windows.Storage.Streams-2.0.1-cp312-cp312-win_arm64.whl", hash = "sha256:0a5446194fb88125569e293657f6bac926731d8ff6126f1b693848fbd2c72167"},
+    {file = "winrt_Windows.Storage.Streams-2.0.1-cp39-cp39-win32.whl", hash = "sha256:f6dec418ad0118c258a1b2999fc8d4fc0d9575e6353a75a242ff8cc63c9b2146"},
+    {file = "winrt_Windows.Storage.Streams-2.0.1-cp39-cp39-win_amd64.whl", hash = "sha256:9fbc40f600ab44a45cda47b698bd8e494e80e221446a5958c4d8d59a8d46f117"},
+    {file = "winrt_Windows.Storage.Streams-2.0.1-cp39-cp39-win_arm64.whl", hash = "sha256:08059774c6d49d195ce00c3802d19364f418a6f3e42b94373621551792d2da60"},
+    {file = "winrt_windows_storage_streams-2.0.1.tar.gz", hash = "sha256:3de8351ed3a9cfcfd1d028ce97ffe90bb95744f906eef025b06e7f4431943ee6"},
+]
+
+[package.dependencies]
+winrt-runtime = "2.0.1"
+
+[package.extras]
+all = ["winrt-Windows.Foundation.Collections[all] (==2.0.1)", "winrt-Windows.Foundation[all] (==2.0.1)", "winrt-Windows.Storage[all] (==2.0.1)", "winrt-Windows.System[all] (==2.0.1)"]
+
+[package.source]
+type = "legacy"
+url = "https://pypi.tuna.tsinghua.edu.cn/simple"
+reference = "mirrors_tuna"
+
+[[package]]
 name = "zipp"
 version = "3.19.2"
 description = "Backport of pathlib-compatible object wrapper for zip files"
@@ -4206,4 +4338,4 @@ reference = "mirrors_tuna"
 [metadata]
 lock-version = "2.0"
 python-versions = ">=3.9,<3.13"
-content-hash = "cebf23b5c697095111e9009777d7eb0bb845f315fdeb3132f4da669d08e69598"
+content-hash = "654169abad1c866fda05eb5f55ba02e46d43b454b82e95447b7d927cb06d4d73"
