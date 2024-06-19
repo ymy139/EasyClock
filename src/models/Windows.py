@@ -7,28 +7,38 @@ from qfluentwidgets import PushButton, ListWidget, LineEdit, CheckBox, FluentIco
 
 from . import Funcs, Settings, DateAndTime, Types
 
+def _loadFonts() -> dict[str, str]:
+    """load the required font
+
+    Returns:
+        dict[str, str]: a dict of font name, like this:
+    ```json
+    {
+      "ui": "fontName",
+      "time": "fontName"
+    }
+    ```
+    """
+    fontID_ui = QFontDatabase.addApplicationFont("resources/fonts/ui.ttf")
+    fontID_time = QFontDatabase.addApplicationFont("resources/fonts/time.ttf")
+    return {
+        "ui": QFontDatabase.applicationFontFamilies(fontID_ui)[0],
+        "time": QFontDatabase.applicationFontFamilies(fontID_time)[0]
+    }
 class MainWindow(QWidget):
+    """main window"""
     def __init__(self, flags: Qt.WindowType | None = None) -> None:
         if flags != None:
             super().__init__(flags=flags)
         else:
             super().__init__()
-        self._loadFonts()
+        self._fontsName = _loadFonts()
         self._initWindow()
         self._initUIWidget()
         self._initUITexts()
         self._initUIStyleSheets()
         self.settings.clicked.connect(self._showSettings)
         self.isClose = False
-        
-    def _loadFonts(self) -> None:
-        """load the required font"""
-        fontID_ui = QFontDatabase.addApplicationFont("resources/fonts/ui.ttf")
-        fontID_time = QFontDatabase.addApplicationFont("resources/fonts/time.ttf")
-        self._fontsName = {
-            "ui": QFontDatabase.applicationFontFamilies(fontID_ui)[0],
-            "time": QFontDatabase.applicationFontFamilies(fontID_time)[0]
-        }
         
     def _initWindow(self) -> None:
         """init window widget"""
@@ -160,18 +170,14 @@ class MainWindow(QWidget):
         return super().closeEvent(a0)
         
 class AboutWindow(QWidget):
+    """about window"""
     def __init__(self, flags: Qt.WindowType) -> None:
         super().__init__(flags=flags)
-        self._loadFonts()
+        self._fontsName = _loadFonts()
         self._initWindow()
         self._initUIWidget()
         self._initUITexts()
         self.ok.clicked.connect(self.close)
-        
-    def _loadFonts(self) -> None:
-        """load the required font"""
-        fontID_ui = QFontDatabase.addApplicationFont("resources/fonts/ui.ttf")
-        self._fontName = QFontDatabase.applicationFontFamilies(fontID_ui)[0]
         
     def _initWindow(self) -> None:
         """init window widget"""
@@ -189,25 +195,25 @@ class AboutWindow(QWidget):
         
         self.title = QLabel(self)
         self.title.setGeometry(110, 0, 270, 40)
-        self.title.setFont(QFont(self._fontName, 19))
+        self.title.setFont(QFont(self._fontsName["ui"], 19))
         
         self.data = QLabel(self)
         self.data.setGeometry(110, 35, 270, 60)
-        self.data.setFont(QFont(self._fontName, 10))
+        self.data.setFont(QFont(self._fontsName["ui"], 10))
         
         self.sentenceFrom = QLabel(self)
         self.sentenceFrom.setGeometry(10, 95, 125, 15)
-        self.sentenceFrom.setFont(QFont(self._fontName, 9))
+        self.sentenceFrom.setFont(QFont(self._fontsName["ui"], 9))
         self.sentenceFrom.setOpenExternalLinks(True)
         
         self.githubRepo = QLabel(self)
         self.githubRepo.setGeometry(10, 110, 250, 15)
-        self.githubRepo.setFont(QFont(self._fontName, 9))
+        self.githubRepo.setFont(QFont(self._fontsName["ui"], 9))
         self.githubRepo.setOpenExternalLinks(True)
         
         self.ok = PushButton(self)
         self.ok.setGeometry(260, 95, 120, 30)
-        self.ok.setFont(QFont(self._fontName, 11))
+        self.ok.setFont(QFont(self._fontsName["ui"], 11))
     
     def _initUITexts(self) -> None:
         """add texts for UI widget"""
@@ -218,9 +224,10 @@ class AboutWindow(QWidget):
         self.ok.setText("确认")
         
 class SettingsWindow(QWidget):
+    """settings window"""
     def __init__(self, flags: Qt.WindowType) -> None:
         super().__init__(flags=flags)
-        self._loadFonts()
+        self._fontsName = _loadFonts()
         self._initWindow()
         self._initUIWidget()
         self._initUITexts()
@@ -228,11 +235,6 @@ class SettingsWindow(QWidget):
         self.about.clicked.connect(self._showAbout)
         self.accept.clicked.connect(self._saveSettings)
         self.focusModeBackground_choose.clicked.connect(self._chooseFocusModeBgImg)
-        
-    def _loadFonts(self) -> None:
-        """load the required font"""
-        fontID_ui = QFontDatabase.addApplicationFont("resources/fonts/ui.ttf")
-        self.fontName = QFontDatabase.applicationFontFamilies(fontID_ui)[0]
         
     def _initWindow(self) -> None:
         """init window widget"""
@@ -248,7 +250,7 @@ class SettingsWindow(QWidget):
         # focusModeBackground
         self.focusModeBackground_label = QLabel(self)
         self.focusModeBackground_label.setGeometry(15, 0, 130, 25)
-        self.focusModeBackground_label.setFont(QFont(self.fontName, 12))
+        self.focusModeBackground_label.setFont(QFont(self._fontsName["ui"], 12))
         
         self.focusModeBackground_input = LineEdit(self)
         self.focusModeBackground_input.setGeometry(10, 25, 410, 33)
@@ -261,11 +263,11 @@ class SettingsWindow(QWidget):
         self.countDown_label = QLabel(self)
         self.countDown_label.setGeometry(15, 60, 100, 25)
         self.countDown_label.setText("自定义倒计时")
-        self.countDown_label.setFont(QFont(self.fontName, 12))
+        self.countDown_label.setFont(QFont(self._fontsName["ui"], 12))
         
         self.countDown_month_label = QLabel(self)
         self.countDown_month_label.setGeometry(20, 85, 20, 33)
-        self.countDown_month_label.setFont(QFont(self.fontName, 12))
+        self.countDown_month_label.setFont(QFont(self._fontsName["ui"], 12))
         self.countDown_month_label.setText("月")
         
         self.countDown_month_num = SpinBox(self)
@@ -275,7 +277,7 @@ class SettingsWindow(QWidget):
         
         self.countDown_day_label = QLabel(self)
         self.countDown_day_label.setGeometry(160, 85, 20, 33)
-        self.countDown_day_label.setFont(QFont(self.fontName, 12))
+        self.countDown_day_label.setFont(QFont(self._fontsName["ui"], 12))
         self.countDown_day_label.setText("日")
         
         self.countDown_day_num = SpinBox(self)
@@ -285,7 +287,7 @@ class SettingsWindow(QWidget):
         
         self.countDown_text_label = QLabel(self)
         self.countDown_text_label.setGeometry(20, 125, 80, 25)
-        self.countDown_text_label.setFont(QFont(self.fontName, 12))
+        self.countDown_text_label.setFont(QFont(self._fontsName["ui"], 12))
         self.countDown_text_label.setText("倒计时内容")
         
         self.countDown_text_input = LineEdit(self)
@@ -358,6 +360,7 @@ class SettingsWindow(QWidget):
             self.focusModeBackground_input.setText(selectedFile)
    
 class Slots(object):
+    """slots for the windows"""
     def __init__(self, window: MainWindow) -> None:
         self.window = window
         
