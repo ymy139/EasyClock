@@ -5,40 +5,53 @@ from PyQt6.QtCore import Qt
 from PyQt6.QtWidgets import QWidget, QLabel, QApplication, QListWidgetItem, QFileDialog, QMessageBox
 from qfluentwidgets import PushButton, ListWidget, LineEdit, CheckBox, FluentIcon, ToolButton, SpinBox
 
-from . import Funcs
+from . import Funcs, Settings, DateAndTime, Types
 
+def _loadFonts() -> dict[str, str]:
+    """load the required font
+
+    Returns:
+        dict[str, str]: a dict of font name, like this:
+    ```json
+    {
+      "ui": "fontName",
+      "time": "fontName"
+    }
+    ```
+    """
+    fontID_ui = QFontDatabase.addApplicationFont("resources/fonts/ui.ttf")
+    fontID_time = QFontDatabase.addApplicationFont("resources/fonts/time.ttf")
+    return {
+        "ui": QFontDatabase.applicationFontFamilies(fontID_ui)[0],
+        "time": QFontDatabase.applicationFontFamilies(fontID_time)[0]
+    }
 class MainWindow(QWidget):
+    """main window"""
     def __init__(self, flags: Qt.WindowType | None = None) -> None:
         if flags != None:
             super().__init__(flags=flags)
         else:
             super().__init__()
-        self.loadFonts()
-        self.initWindow()
-        self.initUIWidget()
-        self.initUITexts()
-        self.initUIStyleSheets()
-        self.settings.clicked.connect(self.showSettings)
+        self._fontsName = _loadFonts()
+        self._initWindow()
+        self._initUIWidget()
+        self._initUITexts()
+        self._initUIStyleSheets()
+        self.settings.clicked.connect(self._showSettings)
         self.isClose = False
         
-    def loadFonts(self) -> None:
-        fontID_ui = QFontDatabase.addApplicationFont("resources/fonts/ui.ttf")
-        fontID_time = QFontDatabase.addApplicationFont("resources/fonts/time.ttf")
-        self.fontsName = {
-            "ui": QFontDatabase.applicationFontFamilies(fontID_ui)[0],
-            "time": QFontDatabase.applicationFontFamilies(fontID_time)[0]
-        }
-        
-    def initWindow(self) -> None:
+    def _initWindow(self) -> None:
+        """init window widget"""
         self.resize(640, 290)
-        self.setFont(QFont(self.fontsName["ui"], 12))
+        self.setFont(QFont(self._fontsName["ui"], 12))
         self.setStyleSheet("background-color: rgb(249, 249, 249);")
         self.setWindowTitle("EasyClock")
         self.setWindowIcon(QIcon("resources/imgs/icon.ico"))
         self.setMaximumSize(640, 290)
         self.setMinimumSize(640, 290)
         
-    def initUIWidget(self) -> None:
+    def _initUIWidget(self) -> None:
+        """init UI widgets"""
         self.separators = {
             "time--greeting": QLabel(self),
             "greeting--oneSentence": QLabel(self),
@@ -55,16 +68,16 @@ class MainWindow(QWidget):
         }
         
         self.timeWidget["hour"].setGeometry(0, 0, 145, 130)
-        self.timeWidget["hour"].setFont(QFont(self.fontsName["time"], 100))
+        self.timeWidget["hour"].setFont(QFont(self._fontsName["time"], 100))
         self.timeWidget["hour"].setAlignment(Qt.AlignmentFlag.AlignHCenter | Qt.AlignmentFlag.AlignVCenter)
         
         self.timeWidget["minute"].setGeometry(150, 0, 145, 130)
-        self.timeWidget["minute"].setFont(QFont(self.fontsName["time"], 100))
+        self.timeWidget["minute"].setFont(QFont(self._fontsName["time"], 100))
         self.timeWidget["minute"].setStyleSheet("color: rgb(245, 139, 46);")
         self.timeWidget["minute"].setAlignment(Qt.AlignmentFlag.AlignHCenter | Qt.AlignmentFlag.AlignVCenter)
         
         self.timeWidget["second"].setGeometry(295, 85, 40, 30)
-        self.timeWidget["second"].setFont(QFont(self.fontsName["time"], 27))
+        self.timeWidget["second"].setFont(QFont(self._fontsName["time"], 27))
         self.timeWidget["second"].setAlignment(Qt.AlignmentFlag.AlignHCenter | Qt.AlignmentFlag.AlignVCenter)
         
         self.date = QLabel(self)
@@ -129,49 +142,52 @@ class MainWindow(QWidget):
         self.settings.setGeometry(575, 255, 60, 30)
         # ====================================================================
         
-    def initUITexts(self) -> None:
+    def _initUITexts(self) -> None:
+        """add texts for UI widget"""
         self.toDoListTitle.setText("待办列表")
         self.toDoList_del.setText("-")
         self.toDoList_add.setText("+")
         self.anotherSentence.setText("←换一句")
         self.settings.setText("设置")
         
-    def initUIStyleSheets(self) -> None:
+    def _initUIStyleSheets(self) -> None:
+        """apply style sheets for UI widgets"""
         self.separators["time--greeting"].setStyleSheet("background-color: rgb(160, 160, 160);")
         self.separators["greeting--oneSentence"].setStyleSheet("background-color: rgb(160, 160, 160);")
         self.separators["left--right"].setStyleSheet("background-color: rgb(160, 160, 160);")
         self.separators["toDoList--menuBar"].setStyleSheet("background-color: rgb(160, 160, 160);")
         
-    def showSettings(self) -> None:
+    def _showSettings(self) -> None:
+        """show settings window(`SettingsWindow`)"""
         self.settingsWindow = SettingsWindow(self.windowFlags())
         self.settingsWindow.show()
         
     def closeEvent(self, a0: QCloseEvent | None) -> None:
+        """close event"""
         self.isClose = True
         self.close()
         sleep(0.5)
         return super().closeEvent(a0)
         
 class AboutWindow(QWidget):
+    """about window"""
     def __init__(self, flags: Qt.WindowType) -> None:
         super().__init__(flags=flags)
-        self.loadFonts()
-        self.initWindow()
-        self.initUIWidget()
-        self.initUITexts()
+        self._fontsName = _loadFonts()
+        self._initWindow()
+        self._initUIWidget()
+        self._initUITexts()
         self.ok.clicked.connect(self.close)
         
-    def loadFonts(self) -> None:
-        fontID_ui = QFontDatabase.addApplicationFont("resources/fonts/ui.ttf")
-        self.fontName = QFontDatabase.applicationFontFamilies(fontID_ui)[0]
-        
-    def initWindow(self) -> None:
+    def _initWindow(self) -> None:
+        """init window widget"""
         self.resize(385, 130)
         self.setStyleSheet("background-color: rgb(249, 249, 249);")
         self.setWindowTitle("EasyClock - 关于")
         self.setWindowIcon(QIcon("resources/imgs/icon.ico"))
         
-    def initUIWidget(self) -> None: 
+    def _initUIWidget(self) -> None: 
+        """init UI widgets"""
         self.icon = QLabel(self)
         self.icon.setGeometry(0, 0, 100, 100)
         self.icon.setScaledContents(True)
@@ -179,27 +195,28 @@ class AboutWindow(QWidget):
         
         self.title = QLabel(self)
         self.title.setGeometry(110, 0, 270, 40)
-        self.title.setFont(QFont(self.fontName, 19))
+        self.title.setFont(QFont(self._fontsName["ui"], 19))
         
         self.data = QLabel(self)
         self.data.setGeometry(110, 35, 270, 60)
-        self.data.setFont(QFont(self.fontName, 10))
+        self.data.setFont(QFont(self._fontsName["ui"], 10))
         
         self.sentenceFrom = QLabel(self)
         self.sentenceFrom.setGeometry(10, 95, 125, 15)
-        self.sentenceFrom.setFont(QFont(self.fontName, 9))
+        self.sentenceFrom.setFont(QFont(self._fontsName["ui"], 9))
         self.sentenceFrom.setOpenExternalLinks(True)
         
         self.githubRepo = QLabel(self)
         self.githubRepo.setGeometry(10, 110, 250, 15)
-        self.githubRepo.setFont(QFont(self.fontName, 9))
+        self.githubRepo.setFont(QFont(self._fontsName["ui"], 9))
         self.githubRepo.setOpenExternalLinks(True)
         
         self.ok = PushButton(self)
         self.ok.setGeometry(260, 95, 120, 30)
-        self.ok.setFont(QFont(self.fontName, 11))
+        self.ok.setFont(QFont(self._fontsName["ui"], 11))
     
-    def initUITexts(self) -> None:
+    def _initUITexts(self) -> None:
+        """add texts for UI widget"""
         self.title.setText("EasyClock 简易学习时钟")
         self.data.setText("Version: v0.1.0\nCode by: ymy139\n本软件遵循AGPLv3开源许可证在GitHub开源")
         self.sentenceFrom.setText("一言来源: <a href='http://hitokoto.cn'>hitokoto.cn</a>")
@@ -207,22 +224,20 @@ class AboutWindow(QWidget):
         self.ok.setText("确认")
         
 class SettingsWindow(QWidget):
+    """settings window"""
     def __init__(self, flags: Qt.WindowType) -> None:
         super().__init__(flags=flags)
-        self.loadFonts()
-        self.initWindow()
-        self.initUIWidget()
-        self.initUITexts()
-        self.initSettingsItemContent()
-        self.about.clicked.connect(self.showAbout)
-        self.accept.clicked.connect(self.saveSettings)
-        self.focusModeBackground_choose.clicked.connect(self.chooseFocusModeBgImg)
+        self._fontsName = _loadFonts()
+        self._initWindow()
+        self._initUIWidget()
+        self._initUITexts()
+        self._initSettingsItemContent()
+        self.about.clicked.connect(self._showAbout)
+        self.accept.clicked.connect(self._saveSettings)
+        self.focusModeBackground_choose.clicked.connect(self._chooseFocusModeBgImg)
         
-    def loadFonts(self) -> None:
-        fontID_ui = QFontDatabase.addApplicationFont("resources/fonts/ui.ttf")
-        self.fontName = QFontDatabase.applicationFontFamilies(fontID_ui)[0]
-        
-    def initWindow(self) -> None:
+    def _initWindow(self) -> None:
+        """init window widget"""
         self.resize(470, 180)
         self.setStyleSheet("background-color: rgb(249, 249, 249);")
         self.setWindowTitle("EasyClock - 设置")
@@ -230,11 +245,12 @@ class SettingsWindow(QWidget):
         self.setMaximumSize(470, 180)
         self.setMinimumSize(470, 180)
         
-    def initUIWidget(self) -> None: 
+    def _initUIWidget(self) -> None: 
+        """init UI widgets"""
         # focusModeBackground
         self.focusModeBackground_label = QLabel(self)
         self.focusModeBackground_label.setGeometry(15, 0, 130, 25)
-        self.focusModeBackground_label.setFont(QFont(self.fontName, 12))
+        self.focusModeBackground_label.setFont(QFont(self._fontsName["ui"], 12))
         
         self.focusModeBackground_input = LineEdit(self)
         self.focusModeBackground_input.setGeometry(10, 25, 410, 33)
@@ -247,11 +263,11 @@ class SettingsWindow(QWidget):
         self.countDown_label = QLabel(self)
         self.countDown_label.setGeometry(15, 60, 100, 25)
         self.countDown_label.setText("自定义倒计时")
-        self.countDown_label.setFont(QFont(self.fontName, 12))
+        self.countDown_label.setFont(QFont(self._fontsName["ui"], 12))
         
         self.countDown_month_label = QLabel(self)
         self.countDown_month_label.setGeometry(20, 85, 20, 33)
-        self.countDown_month_label.setFont(QFont(self.fontName, 12))
+        self.countDown_month_label.setFont(QFont(self._fontsName["ui"], 12))
         self.countDown_month_label.setText("月")
         
         self.countDown_month_num = SpinBox(self)
@@ -261,7 +277,7 @@ class SettingsWindow(QWidget):
         
         self.countDown_day_label = QLabel(self)
         self.countDown_day_label.setGeometry(160, 85, 20, 33)
-        self.countDown_day_label.setFont(QFont(self.fontName, 12))
+        self.countDown_day_label.setFont(QFont(self._fontsName["ui"], 12))
         self.countDown_day_label.setText("日")
         
         self.countDown_day_num = SpinBox(self)
@@ -271,7 +287,7 @@ class SettingsWindow(QWidget):
         
         self.countDown_text_label = QLabel(self)
         self.countDown_text_label.setGeometry(20, 125, 80, 25)
-        self.countDown_text_label.setFont(QFont(self.fontName, 12))
+        self.countDown_text_label.setFont(QFont(self._fontsName["ui"], 12))
         self.countDown_text_label.setText("倒计时内容")
         
         self.countDown_text_input = LineEdit(self)
@@ -290,7 +306,8 @@ class SettingsWindow(QWidget):
         self.statusBar.setGeometry(0, 160, 470, 20)
         self.statusBar.setStyleSheet("background-color: #F0F0F0;")
         
-    def initUITexts(self) -> None:
+    def _initUITexts(self) -> None:
+        """add texts for UI widget"""
         self.focusModeBackground_label.setText("专注模式背景图片")
         self.focusModeBackground_input.setPlaceholderText("输入图片路径或点击右侧按钮选择文件")
         self.countDown_text_input.setPlaceholderText("这将显示在倒计时之前")
@@ -298,8 +315,9 @@ class SettingsWindow(QWidget):
         self.about.setText("关于")
         self.accept.setText("应用")
         
-    def initSettingsItemContent(self) -> None:
-        settings = Funcs.Settings.readSettings()
+    def _initSettingsItemContent(self) -> None:
+        """write settings item content to widgets"""
+        settings = Settings.readSettings()
         if settings["window"]["alwaysOnTop"] == True: # type: ignore
             self.alwaysOnTop.setChecked(True)
         self.focusModeBackground_input.setText(settings["theme"]["focusMode"]["background"]) # type: ignore
@@ -307,12 +325,14 @@ class SettingsWindow(QWidget):
         self.countDown_day_num.setValue(settings["window"]["countDown"]["day"]) # type: ignore
         self.countDown_text_input.setText(settings["window"]["countDown"]["text"]) # type: ignore
         
-    def showAbout(self) -> None:
+    def _showAbout(self) -> None:
+        """show about window(`AboutWindow`)"""
         self.aboutWindow = AboutWindow(self.windowFlags())
         self.aboutWindow.show()
         
-    def saveSettings(self) -> None:
-        settings = Funcs.Settings.getSettingsFromWindow(self)
+    def _saveSettings(self) -> None:
+        """save settings (I don't think this function should be placed here)"""
+        settings = Settings.getSettingsFromWindow(self)
         if getattr(self, "dialog", None) != None and self.dialog.selectedMimeTypeFilter() == "application/octet-stream":
             warn = QMessageBox.warning(self, 
                                         "警告", 
@@ -322,12 +342,14 @@ class SettingsWindow(QWidget):
             if warn == QMessageBox.StandardButton.Cancel:
                 return None
         try:
-            Funcs.Settings.saveSettings(settings)
+            Settings.saveSettings(settings)
             self.statusBar.setText(strftime("  %Y/%m/%d - %H:%M:%S  ") + "已保存设置，重新启动软件以生效。")
         except BaseException as errorMsg:
             self.statusBar.setText(strftime("  %Y/%m/%d - %H:%M:%S  ") + "保存失败：" + str(errorMsg))
             
-    def chooseFocusModeBgImg(self) -> None:
+    def _chooseFocusModeBgImg(self) -> None:
+        """open the file selection window to select focus mode background image file, and auto write 
+           the file path to the widget"""
         self.dialog = QFileDialog(self)
         self.dialog.setFileMode(QFileDialog.FileMode.ExistingFile)
         self.dialog.setMimeTypeFilters(["application/octet-stream", "image/jpeg", 
@@ -338,10 +360,12 @@ class SettingsWindow(QWidget):
             self.focusModeBackground_input.setText(selectedFile)
    
 class Slots(object):
+    """slots for the windows"""
     def __init__(self, window: MainWindow) -> None:
         self.window = window
         
     def ChangeAnotherSentence(self) -> None:
+        """change another sentence for main window(`MainWindow`)"""
         sentence = Funcs.getASentence()
         self.window.sentence.setText("「"+sentence["sentence"]+"」")
         if sentence["from"] != None and sentence["from_who"] == None:
@@ -352,6 +376,7 @@ class Slots(object):
             self.window.sentenceFrom.setText("——"+sentence["from_who"]+"「"+sentence["from"]+"」")
             
     def addToDoItem(self) -> None:
+        """add To Do Item"""
         newItem = QListWidgetItem(self.window.toDoList)
         newItem.setText("新建待办事项")
         newItem.setFlags(Qt.ItemFlag.ItemIsEditable |
@@ -361,34 +386,52 @@ class Slots(object):
                          Qt.ItemFlag.ItemIsEnabled)
 
     def delToDoItem(self) -> None:
+        """delate To Do Items"""
         currentItem = self.window.toDoList.currentItem()
         if currentItem != None:
             row = self.window.toDoList.row(currentItem)
             self.window.toDoList.takeItem(row)
         
-    def updataWindow(self) -> None:
-            while not self.window.isClose:
-                nowTime = Funcs.getNowTime()
-                settings = Funcs.Settings.readSettings()
+    def updataWindowLoop(self) -> None:
+        """window update loop, should run within a separate thread"""
+        while not self.window.isClose:
+            nowTime = DateAndTime.getNowTime()
+            settings = Settings.readSettings()
+            lunarDay = DateAndTime.solarToLunar(int(strftime("%Y")), int(strftime("%m")), int(strftime("%d")))
+            self._updataTime(nowTime)
+            self._updataData(nowTime, lunarDay)
+            self._updataGreeting(int(strftime("%H")))
+            self._updataCountDown(settings)
+            self._updataApplication()
+            sleep(0.2)
                 
-                lunarDay = Funcs.solarToLunar(int(strftime("%Y")), 
-                                              int(strftime("%m")), 
-                                              int(strftime("%d")))
-                
-                self.window.timeWidget["hour"].setText(nowTime["hour"])
-                self.window.timeWidget["minute"].setText(nowTime["minute"])
-                self.window.timeWidget["second"].setText(nowTime["second"])
-                
-                self.window.date.setText(strftime("%Y年%m月%d日")+" "+
-                                         nowTime["weekday"]+" "+
-                                         Funcs.getLunarDateString(lunarDay[1], lunarDay[2]))
-                
-                self.window.greeting.setText(Funcs.getGreetingSentence(int(strftime("%H"))))
-                
-                self.window.countdown.setText(settings["window"]["countDown"]["text"] + ": " + # type: ignore
-                                              str(Funcs.calculateCountdown(settings["window"]["countDown"]["month"], # type: ignore
-                                                                           settings["window"]["countDown"]["day"])) + # type: ignore
-                                              "天")
-                
-                QApplication.processEvents()
-                sleep(0.2)
+    def _updataTime(self, nowTime: dict[str, str]) -> None:
+        """updata the time info for main window(`MainWindow`)"""
+        self.window.timeWidget["hour"].setText(nowTime["hour"])
+        self.window.timeWidget["minute"].setText(nowTime["minute"])
+        self.window.timeWidget["second"].setText(nowTime["second"])
+            
+    def _updataData(self, nowTime: dict[str, str], lunarDay: list[int]) -> None:
+        """updata the data info for main window(`MainWindow`)(include lunar data)"""
+        data = strftime("%Y年%m月%d日")
+        weekday = nowTime["weekday"]
+        lunarDate = DateAndTime.getLunarDateString(lunarDay[1], lunarDay[2])
+        self.window.date.setText(data + " " + weekday + " " + lunarDate)
+        
+    def _updataGreeting(self, hour: int) -> None:
+        """updata the greeting sentence for main window(`MainWindow`)"""
+        greetingSentence = Funcs.getGreetingSentence(hour)
+        self.window.greeting.setText(greetingSentence)
+        
+    def _updataCountDown(self, settings: Types.configDictType) -> None:
+        """updata the count down info for main window(`MainWindow`)"""
+        countDownText = settings["window"]["countDown"]["text"] # type: ignore
+        countdownTargetDay: int = settings["window"]["countDown"]["day"] # type: ignore
+        countdownTargetMonth: int = settings["window"]["countDown"]["month"] # type: ignore
+        countdown = DateAndTime.calculateCountdown(countdownTargetMonth, countdownTargetDay)
+        self.window.countdown.setText(countDownText + ": " + str(countdown) + "天") # type: ignore
+        
+    @staticmethod
+    def _updataApplication() -> None:
+        """just repackaged `QApplication.processEvents()` function"""
+        QApplication.processEvents()

@@ -7,11 +7,11 @@ from os.path import split, normpath
 from PyQt6.QtWidgets import QApplication
 from PyQt6.QtCore import Qt
 
-from models import Funcs, Windows
+from models import Funcs, Settings, Windows
 
 chdir(normpath(split(__file__)[0]+"\\.."))
 
-settings = Funcs.Settings.readSettings()
+settings = Settings.readSettings()
 
 app = QApplication(argv)
 if settings["window"]["alwaysOnTop"] == True: # type: ignore
@@ -27,7 +27,7 @@ window.anotherSentence.clicked.connect(slots.ChangeAnotherSentence)
 window.toDoList_add.clicked.connect(slots.addToDoItem)
 window.toDoList_del.clicked.connect(slots.delToDoItem)
 
-updataWindowThread = Thread(target=slots.updataWindow, daemon=True)
+updataWindowThread = Thread(target=slots.updataWindowLoop, daemon=True)
 updataWindowThread.start()
 
 window.show()
